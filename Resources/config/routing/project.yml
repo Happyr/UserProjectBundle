@@ -1,0 +1,51 @@
+happyr_user_project_project_index:
+  path:      /
+  defaults:  { _controller: HappyRUserProjectBundle:Project:index }
+  methods:  [GET]
+
+happyr_user_project_project_show:
+  path:      /{id}
+  defaults:  { _controller: HappyRUserProjectBundle:Project:show }
+  methods:  [GET]
+  requirements:
+    id:  \d+
+
+happyr_user_project_project_leave:
+  path:      /{id}/leave
+  defaults:  { _controller: HappyRUserProjectBundle:Project:leave }
+  methods:  [GET]
+  requirements:
+    id:  \d+
+
+happyr_user_project_project_create:
+  path:      /new
+  defaults:  { _controller: HappyRUserProjectBundle:Project:new }
+  methods:  [GET, POST]
+
+happyr_user_project_project_edit:
+  path:      /{id}/edit
+  defaults:  { _controller: HappyRUserProjectBundle:Project:edit }
+  methods:  [GET, POST]
+  requirements:
+    id:  \d+
+
+happyr_user_project_project_delete:
+  path:      /{id}/delete
+  defaults:  { _controller: HappyRUserProjectBundle:Project:delete }
+  methods:  [GET, POST]
+  requirements:
+    id:  \d+
+
+happyr_user_project_project_join_request:
+  path:      /{id}/join-request
+  defaults:  { _controller: HappyRUserProjectBundle:Project:joinRequest }
+  methods:  [GET]
+  requirements:
+    id:  \d+
+
+
+
+
+
+
+

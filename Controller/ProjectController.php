@@ -2,35 +2,29 @@
 
 namespace HappyR\UserProjectBundle\Controller;
 
-use Carlin\CoreBundle\Response\JsonResponse;
 use HappyR\UserProjectBundle\Form\ObjectType;
 use HappyR\UserProjectBundle\Form\UserType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
 use HappyR\UserProjectBundle\Entity\Project;
 use HappyR\UserProjectBundle\Form\ProjectType;
-use Carlin\BaseBundle\Controller\BaseController;
 
 /**
- * Class ManagerController
+ * Class ProjectController
  *
  * @author Tobias Nyholm
  *
- * @Route("/manager/projects")
  *
  */
-class ManagerController extends BaseController
+class ProjectController extends Controller
 {
     /**
      * Lists all Project entities.
      *
-     * @Route("/", name="_manager_projects")
-     * @Method("GET")
      * @Template()
      *
      * @return array
@@ -56,8 +50,7 @@ class ManagerController extends BaseController
      * Finds and displays a Project entity.
      *
      * @param Project $project
-     * @Route("/{id}", name="_manager_project_show", requirements={"id" = "\d+"})
-     * @Method("GET")
+     *
      * @ParamConverter("project")
      * @Template()
      *
@@ -101,8 +94,6 @@ class ManagerController extends BaseController
      * Remove an user from the project
      *
      * @param Project $project
-     * @Route("/{id}/leave", name="_manager_project_leave", requirements={"id" = "\d+"})
-     * @Method("GET")
      * @ParamConverter("project")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -132,7 +123,6 @@ class ManagerController extends BaseController
      *
      * @param Request $request
      *
-     * @Route("/new", name="_manager_project_create")
      * @Template()
      *
      * @return array
@@ -189,7 +179,6 @@ class ManagerController extends BaseController
      *
      * @param Request $request
      * @param Project $project
-     * @Route("/{id}/edit", name="_manager_project_edit", requirements={"id" = "\d+"})
      * @ParamConverter("project")
      * @Template()
      *

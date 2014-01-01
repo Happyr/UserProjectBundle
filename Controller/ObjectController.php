@@ -2,27 +2,23 @@
 
 namespace HappyR\UserProjectBundle\Controller;
 
-use Eastit\Lego\OpusBundle\Entity\Opus;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use HappyR\UserProjectBundle\Entity\Project;
-use Carlin\BaseBundle\Controller\BaseController;
 use HappyR\UserProjectBundle\Form\ObjectType;
 use HappyR\UserProjectBundle\Model\OpusModel;
 
 /**
- * Class ManagerController
+ * Class ObjectController
  *
  * @author Tobias Nyholm
  *
- * @Route("/manager/projects/{id}/opus", requirements={"id" = "\d+"})
  *
  */
-class OpusesController extends BaseController
+class ObjectController extends Controller
 {
 
     /**
@@ -104,9 +100,6 @@ class OpusesController extends BaseController
      *
      * @param Project $project
      * @param Opus $opus
-     * @Route("/{opus_id}/remove", name="_manager_project_opus_remove", requirements={"opus_id" = "\d+"})
-     * @Method("GET")
-     *
      * @ParamConverter("project")
      * @ParamConverter("opus", options={"id"="opus_id"})
      *

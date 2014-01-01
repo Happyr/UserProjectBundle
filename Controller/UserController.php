@@ -4,31 +4,25 @@ namespace HappyR\UserProjectBundle\Controller;
 
 use HappyR\UserProjectBundle\Events\ProjectEvent;
 use HappyR\UserProjectBundle\ProjectEvents;
-use Eastit\Lego\OpusBundle\Entity\Opus;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use HappyR\UserProjectBundle\Entity\Project;
-use Carlin\BaseBundle\Controller\BaseController;
-use Carlin\CoreBundle\Response\JsonResponse;
 use HappyR\UserProjectBundle\Form\UserEditType;
 use HappyR\UserProjectBundle\Form\UserType;
 use HappyR\UserProjectBundle\Model\UserModel;
 
-use Eastit\UserBundle\Entity\User;
 
 /**
- * Class ManagerController
+ * Class UserController
  *
  * @author Tobias Nyholm
  *
- * @Route("/manager/projects/{id}/user", requirements={"id" = "\d+"})
  *
  */
-class UsersController extends BaseController
+class UserController extends BaseController
 {
 
     /**
@@ -36,16 +30,11 @@ class UsersController extends BaseController
      *
      * @param Request $request
      * @param Project $project
-     * @param Opus $opus
-     *
-     * @Route("/add", name="_manager_project_user_add")
-     * @Route("/add/{opus_id}", name="_manager_project_user_add_with_opus", requirements={"opus_id" = "\d+"})
-     * @Method("POST")
-     * @ParamConverter("opus", options={"id"="opus_id"})
+     * @param integer $objectId
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function addAction(Request $request, Project $project, Opus $opus = null)
+    public function addAction(Request $request, Project $project, $objectId)
     {
         $this->get('carlin.user.company.security_manager')->userIsGrantedCheck('MASTER', $project);
         $permissionManager = $this->get('happyr.user.project.permission_manager');
@@ -127,8 +116,7 @@ class UsersController extends BaseController
      * @param Request $request
      * @param Project $project
      * @param User $user
-     * @Route("/{user_id}/edit", name="_manager_project_user_edit", requirements={"user_id" = "\d+"})
-     * @Method("POST")
+
      * @ParamConverter("project")
      * @ParamConverter("user", options={"id"="user_id"})
      *
@@ -163,8 +151,6 @@ class UsersController extends BaseController
      * @param Request $request
      * @param Project $project
      * @param User $user
-     * @Route("/{user_id}/remove", name="_manager_project_user_remove", requirements={"user_id" = "\d+"})
-     * @Method("GET")
      *
      * @ParamConverter("project")
      * @ParamConverter("user", options={"id"="user_id"})
