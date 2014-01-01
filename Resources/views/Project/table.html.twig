@@ -3,7 +3,7 @@
     <tr>
         <th>{% trans %}happyr.user.project.project.index.table.name{% endtrans %}</th>
         <th>{% trans %}happyr.user.project.project.index.table.members{% endtrans %}</th>
-        <th>{% trans %}happyr.user.project.project.index.table.opuses{% endtrans %}</th>
+        <th>{% trans %}happyr.user.project.project.index.table.objects{% endtrans %}</th>
         <th></th>
     </tr>
     </thead>
@@ -18,7 +18,7 @@
                 {%- endif -%}
             </td>
             <td>{{ project.users|length }}</td>
-            <td>{{ project.opuses|length }}</td>
+            <td>{{ project.objects|length }}</td>
             <td>
                 {%- if requestToJoin -%}
                     <a href="{{ path('happyr_user_project_project_join_request', {id: project.id}) }}">

@@ -12,7 +12,7 @@ use Symfony\Component\Security\Acl\Model\AclProviderInterface;
  * @author Tobias Nyholm
  *
  * This class could be considered a part of the Project Manager. This is handles permissions within the project and
- * adding/removing users and objectes.
+ * adding/removing users and objectes. If you want to add a User to the Project, use the ProjectManager
  *
  */
 class PermissionManager extends BaseAclManager
