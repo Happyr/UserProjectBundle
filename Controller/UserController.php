@@ -4,6 +4,7 @@ namespace HappyR\UserProjectBundle\Controller;
 
 use HappyR\UserProjectBundle\Events\ProjectEvent;
 use HappyR\UserProjectBundle\ProjectEvents;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -22,7 +23,7 @@ use HappyR\UserProjectBundle\Model\UserModel;
  *
  *
  */
-class UserController extends BaseController
+class UserController extends Controller
 {
 
     /**
@@ -36,7 +37,7 @@ class UserController extends BaseController
      */
     public function addAction(Request $request, Project $project, $objectId)
     {
-        $this->get('carlin.user.company.security_manager')->userIsGrantedCheck('MASTER', $project);
+        $this->get('happyr.user.project.security_manager')->verifyUserIsGranted('MASTER', $project);
         $permissionManager = $this->get('happyr.user.project.permission_manager');
 
         $userModel = new UserModel();
@@ -126,7 +127,7 @@ class UserController extends BaseController
      */
     public function editAction(Request $request, Project $project, User $user)
     {
-        $this->get('carlin.user.company.security_manager')->userIsGrantedCheck('MASTER', $project);
+        $this->get('happyr.user.project.security_manager')->verifyUserIsGranted('MASTER', $project);
 
         /*
          * Make sure that the user is in the project
@@ -159,7 +160,7 @@ class UserController extends BaseController
      */
     public function removeAction(Request $request, Project $project, User $user)
     {
-        $this->get('carlin.user.company.security_manager')->userIsGrantedCheck('MASTER', $project);
+        $this->get('happyr.user.project.security_manager')->verifyUserIsGranted('MASTER', $project);
 
         $this->get('happyr.user.project.permission_manager')->removeUser($project, $user);
 

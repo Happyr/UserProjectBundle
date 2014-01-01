@@ -2,43 +2,42 @@
 
 namespace HappyR\UserProjectBundle\Model;
 
-use Eastit\Lego\OpusBundle\Entity\Opus;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class UserModel
+ * Class ObjectModel
  *
  * @author Tobias Nyholm
  *
  */
-class OpusModel
+class ObjectModel
 {
     /**
-     * @var Opus opus
+     * @var Object opus
      *
      * @Assert\NotNull
      */
-    protected $opus;
+    protected $object;
 
     /**
      *
-     * @param Opus $opus
+     * @param Object $object
      *
      * @return $this
      */
-    public function setOpus(Opus $opus)
+    public function setObject(Object $object)
     {
-        $this->opus = $opus;
+        $this->object = $object;
 
         return $this;
     }
 
     /**
      *
-     * @return Opus
+     * @return Object
      */
-    public function getOpus()
+    public function getObject()
     {
-        return $this->opus;
+        return $this->object;
     }
 }

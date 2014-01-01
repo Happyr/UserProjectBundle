@@ -6,8 +6,6 @@ use HappyR\UserProjectBundle\Entity\Project;
 use HappyR\UserProjectBundle\Factory\ProjectFactory;
 use HappyR\UserProjectBundle\Services\MailerService;
 use Doctrine\Common\Persistence\ObjectManager;
-use Eastit\Darwin\CompanyBundle\Entity\Company;
-use Eastit\UserBundle\Entity\User;
 
 /**
  * Class ProjectManager

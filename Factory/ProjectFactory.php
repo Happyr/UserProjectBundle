@@ -2,8 +2,11 @@
 
 namespace HappyR\UserProjectBundle\Factory;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use HappyR\IdentifierInterface;
 use HappyR\UserProjectBundle\Entity\Project;
+use HappyR\UserProjectBundle\Manager\PermissionManager;
+use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
  * Class ProjectFactory
@@ -13,6 +16,29 @@ use HappyR\UserProjectBundle\Entity\Project;
  */
 class ProjectFactory
 {
+    /**
+     * @var ObjectManager em
+     *
+     */
+    private $em;
+
+    /**
+     * @var PermissionManager permissionManager
+     *
+     */
+    private $permissionManager;
+
+    /**
+     * @param ObjectManager $em
+     * @param PermissionManager $pm
+     */
+    public function __construct(ObjectManager $em, PermissionManager $pm)
+    {
+        $this->em = $em;
+        $this->permissionManager = $pm;
+
+    }
+
     /**
      * Returns a new object with all empty values
      *
@@ -27,40 +53,44 @@ class ProjectFactory
      * Mark a project as private
      *
      * @param Project &$project
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      *
      */
-    public function makePrivate(Project &$project, IdentifierInterface &$user)
+    public function makePrivate(Project &$project, ProjectMemberInterface &$user)
     {
         $project
             ->setName('_private_' . $user->getId())
             ->setPublic(false);
     }
 
+    public function create(Project &$project)
+    {
+        $this->em->persist($project);
+        $this->em->flush();
+    }
+
     /**
      * Remove a project
      *
-     * @param mixed &$project
+     * @param Project &$project
      *
      */
-    public function remove(&$project)
+    public function remove(Project &$project)
     {
         $users = $project->getUsers();
-        $pm = $this->getParam('permission_manager');
 
         foreach ($users as $user) {
-            $pm->removeUser($project, $user);
+            $this->permissionManager->removeUser($project, $user);
         }
 
-        $em = $this->getParam('em');
-        $opuses = $project->getOpuses();
+        $opuses = $project->getObjects();
         foreach ($opuses as $o) {
             $o->removeProject();
-            $em->persist($o);
+            $this->em->persist($o);
         }
-        $em->flush();
+        $this->em->flush();
 
-        $em->remove($project);
-        $em->flush();
+        $this->em->remove($project);
+        $this->em->flush();
     }
 }

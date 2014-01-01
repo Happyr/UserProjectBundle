@@ -1,7 +1,4 @@
-{% extends 'HappyRUserProjectBundle:Manager:base.single.html.twig' %}
-
-{% set _breadcrumbs=arrayAppend(_breadcrumbs, {'name':'happyr.user.project.project.sidebar.remove'|trans,'path':'_manager_project_delete', params:{id:project.id} }) %}
-
+{% extends 'HappyRUserProjectBundle:Project:base.html.twig' %}
 
 {% block content -%}
     <h2>{% trans %}happyr.user.project.project.delete.heading{% endtrans %}</h2>

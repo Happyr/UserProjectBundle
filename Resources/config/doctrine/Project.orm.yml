@@ -6,13 +6,21 @@ HappyR\UserProjectBundle\Entity\Project:
     preUpdate: [updateUpdatedAt]
   oneToMany:
     objects:
-      targetEntity: %happyr.user.project.orm.object_class%
-      mappedBy: %happyr.user.project.orm.mapped_by%
+      targetEntity: HappyR\UserProjectBundle\Model\ProjectObjectInterface
+      mappedBy: project
       cascade: [persist]
   manyToMany:
     users:
-      targetEntity: %happyr.user.project.orm.user_class%
-      joinTable: HappyRUserProject_Users
+      targetEntity: HappyR\UserProjectBundle\Model\ProjectMemberInterface
+      joinTable:
+        name: HappyRUserProject_Users
+        joinColumns:
+          user_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          object_id:
+            referencedColumnName: id
+
   id:
     id:
       type: integer

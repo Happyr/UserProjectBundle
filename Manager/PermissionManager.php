@@ -2,7 +2,6 @@
 
 namespace HappyR\UserProjectBundle\Manager;
 
-use Carlin\BaseBundle\Manager\BaseAclManager;
 use HappyR\IdentifierInterface;
 use HappyR\UserProjectBundle\Entity\Project;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;

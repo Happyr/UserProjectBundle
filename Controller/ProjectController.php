@@ -31,14 +31,11 @@ class ProjectController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->get('security.context')->isGranted('ROLE_COMPANY_ENTERPRISE')) {
-            return $this->redirect($this->generateUrl('_manager_projects_non_enterprise'));
-        }
-
         $user = $this->getUser();
-        $myProjects = $this->getRepo('HappyRUserProjectBundle:Project')->findUserProjects($user);
+        $repo=$this->getDoctrine()->getRepository('HappyRUserProjectBundle:Project');
+        $myProjects = $repo->findUserProjects($user);
 
-        $projects = $this->getRepo('HappyRUserProjectBundle:Project')->findNonUserProjects($user);
+        $projects = $repo->findNonUserProjects($user);
 
         return array(
             'myProjects' => $myProjects,
@@ -58,34 +55,11 @@ class ProjectController extends Controller
      */
     public function showAction(Project $project)
     {
-        $this->get('carlin.user.company.security_manager')->userIsGrantedCheck('VIEW', $project);
-        if (!$project->isPublic()) {
-            throw $this->createNotFoundException('Project not found');
-        }
-
-        $userForm = $this->createForm(
-            new UserType(),
-            null,
-            array(
-                'action' => $this->generateUrl('_manager_project_user_add', array('id' => $project->getId())),
-                'company' => $project->getCompany(),
-                'choices' => $this->getRepo('HappyRUserProjectBundle:Project')->findUsersToProject($project),
-            )
-        );
-
-        $opusForm = $this->createForm(
-            new ObjectType(),
-            null,
-            array(
-                'action' => $this->generateUrl('_manager_project_opus_add', array('id' => $project->getId())),
-                'company' => $project->getCompany(),
-                'choices' => $this->getRepo('HappyRUserProjectBundle:Project')->findOpusesToProject($project),
-            )
-        );
+        $security=$this->get('happyr.user.project.security_manager');
+        $security->verifyUserIsGranted('VIEW', $project);
+        $security->verifyProjectIsPublic($project);
 
         return array(
-            'userForm' => $userForm->createView(),
-            'opusForm' => $opusForm->createView(),
             'project' => $project,
         );
     }
@@ -100,10 +74,9 @@ class ProjectController extends Controller
      */
     public function leaveAction(Project $project)
     {
-        $this->get('carlin.user.company.security_manager')->userIsGrantedCheck('VIEW', $project);
-        if (!$project->isPublic()) {
-            throw $this->createNotFoundException('Project not found');
-        }
+        $security=$this->get('happyr.user.project.security_manager');
+        $security->verifyUserIsGranted('VIEW', $project);
+        $security->verifyProjectIsPublic($project);
 
         $user = $this->getUser();
         $permissionManager = $this->get('happyr.user.project.permission_manager');
@@ -129,19 +102,14 @@ class ProjectController extends Controller
      */
     public function newAction(Request $request)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_COMPANY_ENTERPRISE')) {
-            return $this->redirect($this->generateUrl('_manager_projects_non_enterprise'));
-        }
-
-        $company = $this->getUser()->getCompany();
         $factory = $this->get('happyr.user.project.project_factory');
         $project = $factory->getNew();
-        $project->setCompany($company);
+
         $form = $this->createForm(
             new ProjectType(),
             $project,
             array(
-                'action' => $this->generateUrl('_manager_project_create'),
+                'action' => $this->generateUrl('happyr_user_project_project_create'),
             )
         );
         $form->add('submit', 'submit', array('label' => 'form.create'));
@@ -158,13 +126,11 @@ class ProjectController extends Controller
                 $permissionManager = $this->get('happyr.user.project.permission_manager');
                 $permissionManager->addUser($project, $user, 'MASTER');
 
-                $em = $this->getEntityManager();
-                $em->persist($project);
-                $em->flush();
+                $this->getDoctrine()->getManager()->flush();
 
                 $this->get('session')->getFlashbag()->add('success', 'happyr.user.project.project.flash.created');
 
-                return $this->redirect($this->generateUrl('_manager_project_show', array('id' => $project->getId())));
+                return $this->redirect($this->generateUrl('happyr_user_project_project_show', array('id' => $project->getId())));
             }
         }
 
@@ -186,16 +152,15 @@ class ProjectController extends Controller
      */
     public function editAction(Request $request, Project $project)
     {
-        $this->get('carlin.user.company.security_manager')->userIsGrantedCheck('MASTER', $project);
-        if (!$project->isPublic()) {
-            throw $this->createNotFoundException('Project not found');
-        }
+        $security=$this->get('happyr.user.project.security_manager');
+        $security->verifyUserIsGranted('MASTER', $project);
+        $security->verifyProjectIsPublic($project);
 
         $form = $this->createForm(
             new ProjectType(),
             $project,
             array(
-                'action' => $this->generateUrl('_manager_project_edit', array('id' => $project->getId())),
+                'action' => $this->generateUrl('happyr_user_project_project_edit', array('id' => $project->getId())),
             )
         );
         $form->add('submit', 'submit', array('label' => 'form.update'));
@@ -204,7 +169,9 @@ class ProjectController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $this->getEntityManager()->flush();
+                $em=$this->getDoctrine()->getManager();
+                $em->persist($project);
+                $em->flush();
 
                 $this->get('session')->getFlashbag()->add('success', 'happyr.user.project.project.flash.updated');
             }
@@ -221,18 +188,16 @@ class ProjectController extends Controller
      *
      * @param Request $request
      * @param Project $project
-     * @Route("/{id}/remove", name="_manager_project_delete", requirements={"id" = "\d+"})
-     * @ParamConverter("project")
+     *
      * @Template()
      *
      * @return array
      */
     public function deleteAction(Request $request, Project $project)
     {
-        $this->get('carlin.user.company.security_manager')->userIsGrantedCheck('MASTER', $project);
-        if (!$project->isPublic()) {
-            throw $this->createNotFoundException('Project not found');
-        }
+        $security=$this->get('happyr.user.project.security_manager');
+        $security->verifyUserIsGranted('MASTER', $project);
+        $security->verifyProjectIsPublic($project);
 
         $form = $this->createDeleteForm($project->getId());
 
@@ -264,7 +229,7 @@ class ProjectController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('_manager_project_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('happyr_user_project_project_delete', array('id' => $id)))
             ->add('submit', 'submit', array('label' => 'form.remove'))
             ->getForm();
     }
@@ -273,8 +238,7 @@ class ProjectController extends Controller
      * Remove an user from the project
      *
      * @param Project $project
-     * @Route("/{id}/join-request", name="_manager_project_join", requirements={"id" = "\d+"})
-     * @Method("GET")
+     *
      * @ParamConverter("project")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

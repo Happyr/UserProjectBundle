@@ -2,7 +2,6 @@
 
 namespace HappyR\UserProjectBundle\Model;
 
-use Eastit\UserBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

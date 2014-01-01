@@ -3,9 +3,8 @@
 namespace HappyR\UserProjectBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Eastit\Lego\OpusBundle\Entity\BaseOpus;
-use Eastit\UserBundle\Entity\User;
 use HappyR\IdentifierInterface;
+use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
  * Class ProjectRepository
@@ -19,11 +18,11 @@ class ProjectRepository extends EntityRepository
     /**
      * Get the private project for a user.
      *
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      *
      * @return Project|null
      */
-    public function findPrivateProject(IdentifierInterface &$user)
+    public function findPrivateProject(ProjectMemberInterface &$user)
     {
         return $this->findOneBy(
             array(
@@ -37,11 +36,11 @@ class ProjectRepository extends EntityRepository
      * Find the projects that this user is a member of.
      * This will not fetch private projects.
      *
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      *
      * @return array
      */
-    public function findUserProjects(IdentifierInterface &$user)
+    public function findUserProjects(ProjectMemberInterface &$user)
     {
 
         $query = $this->getUserProjectsQb()
@@ -73,11 +72,11 @@ class ProjectRepository extends EntityRepository
      * Find the projects that this user is not a member of.
      * This will not fetch private projects.
      *
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      *
      * @return array
      */
-    public function findNonUserProjects(IdentifierInterface &$user)
+    public function findNonUserProjects(ProjectMemberInterface &$user)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 

@@ -4,32 +4,29 @@ parameters:
   happyr.user.project.project_manager.class: HappyR\UserProjectBundle\Manager\ProjectManager
   happyr.user.project.project_factory.class: HappyR\UserProjectBundle\Factory\ProjectFactory
   happyr.user.project.project_service.class: HappyR\UserProjectBundle\Services\ProjectService
+  happyr.user.project.security_manager.class: HappyR\UserProjectBundle\Manager\SecurityManager
 
 services:
   happyr.user.project.permission_manager:
     class: %happyr.user.project.permission_manager.class%
     arguments: [@security.acl.provider]
 
-  happyr.user.project.mailer:
-    class: %happyr.user.project.mailer.class%
-    arguments: [@carlin.communication.mailer.mailSender, @carlin.communication.mailer.mail_factory]
-    tags:
-      - { name: kernel.event_listener, event: happyr.user.project.user.invited, method: sendInvitedMail }
 
   happyr.user.project.project_manager:
     class: %happyr.user.project.project_manager.class%
     arguments:
       - @doctrine.orm.entity_manager
-      - @happyr.user.project.mailer
       - @happyr.user.project.permission_manager
       - @happyr.user.project.project_factory
 
   happyr.user.project.project_factory:
     class: %happyr.user.project.project_factory.class%
-    arguments:
-      - em: @doctrine.orm.entity_manager
-        permission_manager: @happyr.user.project.permission_manager
+    arguments: [@doctrine.orm.entity_manager, @happyr.user.project.permission_manager]
 
   happyr.user.project.project_service:
     class: %happyr.user.project.project_service.class%
     arguments: [@doctrine.orm.entity_manager]
+
+  happyr.user.project.security_manager:
+    class: %happyr.user.project.security_manager.class%
+    arguments: [@security.context]

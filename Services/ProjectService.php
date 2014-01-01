@@ -5,8 +5,6 @@ namespace HappyR\UserProjectBundle\Services;
 
 use HappyR\UserProjectBundle\Entity\Project;
 use Doctrine\Common\Persistence\ObjectManager;
-use Eastit\Darwin\CompanyBundle\Entity\Company;
-use Eastit\Lego\OpusBundle\Entity\Opus;
 
 /**
  * Class ProjectService

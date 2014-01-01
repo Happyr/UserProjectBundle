@@ -5,6 +5,7 @@ namespace HappyR\UserProjectBundle\Entity;
 use HappyR\IdentifierInterface;
 use HappyR\UserProjectBundle\Manager\PermissionManager;
 use Doctrine\Common\Collections\ArrayCollection;
+use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -233,11 +234,11 @@ class Project
     /**
      * Add objects
      *
-     * @param IdentifierInterface &$object
+     * @param ProjectObjectInterface &$object
      *
      * @return $this
      */
-    public function addObject(IdentifierInterface &$object)
+    public function addObject(ProjectObjectInterface &$object)
     {
         if (!$this->objects->contains($object)) {
             $this->objects->add($object);
@@ -249,11 +250,11 @@ class Project
     /**
      * Remove an object
      *
-     * @param IdentifierInterface &$object
+     * @param ProjectObjectInterface &$object
      *
      * @return bool
      */
-    public function removeOpus(IdentifierInterface &$object)
+    public function removeObject(ProjectObjectInterface &$object)
     {
         return $this->objects->removeElement($object);
     }

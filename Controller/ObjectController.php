@@ -2,6 +2,7 @@
 
 namespace HappyR\UserProjectBundle\Controller;
 
+use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -27,21 +28,19 @@ class ObjectController extends Controller
      * @param Request $request
      * @param Project $project
      *
-     * @Route("/add", name="_manager_project_opus_add")
-     * @Method("POST")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function addAction(Request $request, Project $project)
     {
-        $this->get('carlin.user.company.security_manager')->userIsGrantedCheck('CREATE', $project);
+        $this->get('happyr.user.project.security_manager')->verifyUserIsGranted('CREATE', $project);
         $response = $this->redirect($this->generateUrl('_manager_project_show', array('id' => $project->getId())));
 
-        $opusModel = new OpusModel();
+        $objectModel = new OpusModel();
 
         $form = $this->createForm(
             new ObjectType(),
-            $opusModel,
+            $objectModel,
             array(
                 'company' => $project->getCompany(),
             )
@@ -52,37 +51,36 @@ class ObjectController extends Controller
         if (!$form->isValid()) {
             $this->get('session')->getFlashbag()->add(
                 'fail',
-                'happyr.user.project.project.flash.opus.is_null'
+                'happyr.user.project.project.flash.object.is_null'
             );
 
             return $response;
         }
 
-        $opus = $opusModel->getOpus();
+        $object = $objectModel->getOpus();
 
         /*
-         * Check if the opus belongs to an other project
+         * Check if the object belongs to an other project
          */
-        //FIXME this is the only time we do $opus->getProject(). Remove it
-        if ($opus->getProject() != null) {
-            $opusProject = $opus->getProject();
-            if (!$this->get('carlin.user.company.security_manager')->userIsGrantedCheck(
+        //FIXME this is the only time we do $object->getProject(). Remove it
+        if ($object->getProject() != null) {
+            $objectProject = $object->getProject();
+            if (!$this->get('happyr.user.project.security_manager')->userIsGranted(
                 'DELETE',
-                $opusProject,
-                false
+                $objectProject
             )
             ) {
                 $this->get('session')->getFlashbag()->add(
                     'fail',
-                    'happyr.user.project.project.flash.opus.other_project'
+                    'happyr.user.project.project.flash.object.other_project'
                 );
 
                 return $response;
             }
         }
 
-        //add the opus to this project
-        $this->get('happyr.user.project.permission_manager')->addOpus($project, $opus);
+        //add the object to this project
+        $this->get('happyr.user.project.permission_manager')->addOpus($project, $object);
 
         $em = $this->getEntityManager();
         $em->persist($project);
@@ -90,36 +88,37 @@ class ObjectController extends Controller
 
         $this->get('session')->getFlashbag()->add(
             'success',
-            'happyr.user.project.project.flash.opus.added'
+            'happyr.user.project.project.flash.object.added'
         );
 
         return $response;
     }
 
     /**
-     * Remove an opus from the project
+     * Remove an object from the project
      *
      * @param Project $project
-     * @param Opus $opus
+     * @param Opus $object
+     *
      * @ParamConverter("project")
-     * @ParamConverter("opus", options={"id"="opus_id"})
+     * @ParamConverter("object", options={"id"="object_id"})
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function removeAction(Project $project, Opus $opus)
+    public function removeAction(Project $project, ProjectObjectInterface $object)
     {
-        $this->get('carlin.user.company.security_manager')->userIsGrantedCheck('DELETE', $project);
+        $this->get('happyr.user.project.security_manager')->verifyUserIsGranted('DELETE', $project);
 
-        $this->get('happyr.user.project.permission_manager')->removeOpus($project, $opus);
+        $this->get('happyr.user.project.permission_manager')->removeOpus($project, $object);
 
         $em = $this->getEntityManager();
         $em->persist($project);
-        $em->persist($opus);
+        $em->persist($object);
         $em->flush();
 
         $this->get('session')->getFlashbag()->add(
             'success',
-            'happyr.user.project.project.flash.opus.removed'
+            'happyr.user.project.project.flash.object.removed'
         );
 
         return $this->redirect($this->generateUrl('_manager_project_show', array('id' => $project->getId())));

@@ -2,8 +2,8 @@
 
 namespace HappyR\UserProjectBundle\Events;
 
-use HappyR\IdentifierInterface;
 use HappyR\UserProjectBundle\Entity\Project;
+use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -30,9 +30,9 @@ class ProjectEvent extends Event
 
     /**
      * @param Project &$project
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      */
-    public function __construct(Project &$project, IdentifierInterface &$user = null)
+    public function __construct(Project &$project, ProjectMemberInterface &$user = null)
     {
         $this->project = $project;
         $this->user = $user;
@@ -62,11 +62,11 @@ class ProjectEvent extends Event
 
     /**
      *
-     * @param \HappyR\IdentifierInterface $user
+     * @param \HappyR\ProjectMemberInterface $user
      *
      * @return $this
      */
-    public function setUser(IdentifierInterface $user)
+    public function setUser(ProjectMemberInterface $user)
     {
         $this->user = $user;
 
@@ -75,7 +75,7 @@ class ProjectEvent extends Event
 
     /**
      *
-     * @return \HappyR\IdentifierInterface
+     * @return \HappyR\ProjectMemberInterface
      */
     public function getUser()
     {

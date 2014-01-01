@@ -1,7 +1,7 @@
 #TODO you might have to set object_id to null..
 happyr_user_project_user_add:
   path:      /add/{objectId}
-  defaults:  { _controller: HappyRUserProjectBundle:User:add, object_id:0 }
+  defaults:  { _controller: HappyRUserProjectBundle:User:add, objectId:0 }
   methods:  [POST]
   requirements:
     objectId:  \d+

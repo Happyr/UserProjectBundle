@@ -1,4 +1,5 @@
-{% extends 'HappyRUserProjectBundle:Manager:base.single.html.twig' %}
+{% extends 'HappyRUserProjectBundle:Project:base.html.twig' %}
+
 
 {% import "HappyRUserProjectBundle:Macro:tableMacro.html.twig" as macro %}
 {% block content -%}
@@ -53,7 +54,7 @@
                     <th>{% trans %}word.name{% endtrans %}</th>
                     <th></th>
                 </tr>
-                {% for o in project.opuses %}
+                {% for o in project.objects %}
                     <tr>
                         <td>{{ o.headline }} </td>
                         <td>
@@ -73,23 +74,4 @@
 
         </section>
     </section>
-{% endblock %}
-
-{% block asidecontent %}
-    {{ parent() }}
-    {% if is_granted('CREATE', project)  or is_granted('ROLE_DIRECTOR') %}
-        <section id="project-show-sidebar-extend" class="bordertop">
-            <h3>{% trans %}happyr.user.project.project.show.sidebar.headline{% endtrans %}</h3>
-            {% if is_granted('MASTER', project)  or is_granted('ROLE_DIRECTOR') %}
-                <section>
-                    <h4>{% trans %}happyr.user.project.project.show.sidebar.users.headline{% endtrans %}</h4>
-                    {{ form(userForm) }}
-                </section>
-            {% endif %}
-            <section>
-                <h4>{% trans %}happyr.user.project.project.show.sidebar.opuses.headline{% endtrans %}</h4>
-                {{ form(opusForm) }}
-            </section>
-        </section>
-    {% endif %}
 {% endblock %}

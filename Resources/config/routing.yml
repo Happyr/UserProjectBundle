@@ -3,13 +3,13 @@ happyr_user_project_project:
   prefix:   /projects
 
 happyr_user_project_users:
-  resource: "@HappyRUserProjectBundle/Resources/config/routing/users.yml"
+  resource: "@HappyRUserProjectBundle/Resources/config/routing/user.yml"
   prefix:   /projects/{id}/users
   requirements:
     id:  \d+
 
 happyr_user_project_objects:
-  resource: "@HappyRUserProjectBundle/Resources/config/routing/objects.yml"
+  resource: "@HappyRUserProjectBundle/Resources/config/routing/object.yml"
   prefix:   /projects/{id}/objects
   requirements:
     id:  \d+

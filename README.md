@@ -63,5 +63,51 @@ happy_r_user_project:
 Requirements
 ------------
 
-Your User object must implement HappyR\IdentifierInterface and Symfony\Component\Security\Core\User\UserInterface.
-Your other object that is in the project must implement HappyR\IdentifierInterface.
+Your User object must implement HappyR\UserProjectBundle\Model\ProjectMemberInterface.
+Your other object that is in the project must implementHappyR\UserProjectBundle\Model\ProjectObjectInterface.
+
+http://symfony.com/doc/current/cookbook/doctrine/resolve_target_entity.html
+
+``` php
+use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
+
+class MyObject implements ProjectObjectInterface
+{
+    /**
+     * @var Project project
+     *
+     * @ORM\ManyToOne(targetEntity="HappyR\UserProjectBundle\Entity\Project", inversedBy="objects", cascade={"persist"})
+     *
+     */
+    protected $project;
+
+    public function getId()
+    {
+        return $this->id
+    }
+
+    public function getProject()
+    {
+        $this->project;
+    }
+
+    /**
+     *
+     * @param Project $project
+     *
+     */
+    public function setProject(Project $project)
+    {
+        $this->project=$project;
+    }
+}
+
+
+### Routing
+
+```yml
+# app/config/routing.yml
+happyr_user_project:
+    resource: "@HappyRUserProjectBundle/Resources/config/routing.yml"
+    prefix:   /
+```

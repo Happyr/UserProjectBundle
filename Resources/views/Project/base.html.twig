@@ -1,0 +1,10 @@
+{% extends '@HappyRUserProject/base.html.twig' %}
+
+
+{% block headercontent %}
+    <h1>{% trans %}happyr.user.project.project.base.title{% endtrans %}</h1>
+{% endblock %}
+
+{% block sidebar %}
+    {% include "HappyRUserProjectBundle:Project:sidebar.html.twig" %}
+{% endblock %}
