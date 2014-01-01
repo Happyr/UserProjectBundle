@@ -15,7 +15,7 @@ class ProjectFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testMakePrivate()
     {
-        $user=m::mock('HappyR\IdentifierInterface')
+        $user=m::mock('HappyR\UserProjectBundle\Model\ProjectMemberInterface')
             ->shouldReceive('getId')->andReturn('4711')
             ->getMock();
 
