@@ -1,0 +1,3 @@
+{% extends 'HappyRUserProjectBundle:Manager:base.html.twig' %}
+
+{% set _breadcrumbs=arrayAppend(_breadcrumbs, {'name':project.name|trans,'path':'_manager_project_show', params:{id:project.id} }) %}

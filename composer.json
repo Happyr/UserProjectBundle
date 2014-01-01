@@ -1,0 +1,31 @@
+{
+    "name": "happyr/user-project-bundle",
+    "type": "symfony-bundle",
+    "description": "If you have multiple users that will share access to one or more objects.",
+    "keywords": ["User management", "Project"],
+    "homepage": "http://developer.happyr.se/symfony2-bundles/happyr-user-project-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Nyholm",
+            "email": "tobias@happyrecruiting.se"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/symfony": ">=2.0",
+        "twig/twig": "*",
+        "symfony/yaml": "2.*",
+        "happyr/identifier-interface": "1.0.*"
+    },
+    "require-dev": {
+        "mockery/mockery": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "HappyR\\UserProjectBundle": ""
+        }
+    },
+    "target-dir": "HappyR/UserProjectBundle"
+
+}

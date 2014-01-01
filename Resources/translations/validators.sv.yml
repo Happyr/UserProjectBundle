@@ -1,0 +1,4 @@
+happyr.user.project.name:
+  short: 'Projektets namn är för kort'
+  blank: 'Du måste ange ett namn på projektet'
+  long: 'Projektets namn är för långt'

@@ -1,0 +1,17 @@
+{% macro projectUserPermission(project, user) %}
+    {% spaceless %}
+        {% set options=static('Carlin\\User\\ProjectBundle\\Manager\\PermissionManager', 'validMasks') %}
+        <select onchange="
+                $.post('{{ path('_manager_project_user_edit', {id:project.id, user_id:user.id}) }}', {
+                mask: $(this).val()
+                });
+                ">
+            {% for o in options %}
+                <option value="{{ o }}"
+                        {%- if project.getPermission(user) == o %} selected="selected"{% endif %}>
+                    {{ ('happyr.user.project.mask.' ~ o)|trans }}
+                </option>
+            {% endfor %}
+        </select>
+    {% endspaceless %}
+{% endmacro %}

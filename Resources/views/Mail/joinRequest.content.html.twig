@@ -1,0 +1,31 @@
+{% extends "CarlinCommunicationMailerBundle:Mail:mail.content.html.twig" %}
+
+
+{% block content %}
+
+    <table class="widget" align="left" cellpadding="8" cellspacing="0" width="100%"
+           style="font-size:14px; color:#222222;">
+        <tbody>
+
+        {{ mailMacro.tableRowHeadline(
+        "happyr.user.project.joinRequest.headline"|trans({'%%email%%': user.email},"mail")
+        ) }}
+
+        {{ mailMacro.tableRow(
+        "happyr.user.project.joinRequest.message1"|trans({
+        '%%email%%': user.email,
+        '%%name%%': user.profile.fullname,
+        '%%project%%': project.name
+        },"mail")
+        ) }}
+
+        {{ mailMacro.tableRow(
+        "happyr.user.project.joinRequest.message2"|trans({},"mail")
+        ) }}
+
+        </tbody>
+    </table>
+
+    {{ mailMacro.linkButton(url('_manager_projects'),"happyr.user.project.projects.label"|trans({},"mail"),true) }}
+
+{% endblock %}

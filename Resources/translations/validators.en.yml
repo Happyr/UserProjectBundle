@@ -1,0 +1,4 @@
+happyr.user.project.name:
+  long: 'The name of the project is too long'
+  short: 'The name of the project is too short'
+  blank: 'You have to write a name of the project'

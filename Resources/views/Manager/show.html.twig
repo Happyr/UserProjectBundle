@@ -1,0 +1,95 @@
+{% extends 'HappyRUserProjectBundle:Manager:base.single.html.twig' %}
+
+{% import "HappyRUserProjectBundle:Macro:tableMacro.html.twig" as macro %}
+{% block content -%}
+    <section>
+        <h2>{{ project.name }}</h2>
+
+        <p>{{ project.description }}</p>
+
+        <section>
+            <h3>{% trans %}happyr.user.project.project.show.users.heading{% endtrans %}</h3>
+
+            <p>{% trans %}happyr.user.project.project.show.users.description{% endtrans %}</p>
+
+
+            <table class="item-list project-item zebra">
+                <tr>
+                    <th>{% trans %}word.name{% endtrans %}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for u in project.users %}
+                    <tr id="user_{{ u.id }}">
+                        <td>{{ u }}</td>
+                        {# make sure you are administrator or director, but you cant edit yourself #}
+                        {% if (is_granted('MASTER', project) or is_granted('ROLE_DIRECTOR')) and u.id != _user.id %}
+                            <td class="no-padding">{{ macro.projectUserPermission(project, u) }}</td>
+                            <td><a href="{{ path('_manager_project_user_remove', {id:project.id, user_id:u.id}) }}"
+                                   class="icon-remove"></a></td>
+                        {% else %}
+                            <td></td>
+                            <td></td>
+                        {% endif %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td><p>{% trans %}happyr.user.project.project.show.users.empty{% endtrans %}</p></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </section>
+
+        <section>
+            <h3>{% trans %}happyr.user.project.project.show.opuses.heading{% endtrans %}</h3>
+
+            <p>{% trans %}happyr.user.project.project.show.opuses.description{% endtrans %}</p>
+
+            <table class="item-list project-item zebra">
+                <tr>
+                    <th>{% trans %}word.name{% endtrans %}</th>
+                    <th></th>
+                </tr>
+                {% for o in project.opuses %}
+                    <tr>
+                        <td>{{ o.headline }} </td>
+                        <td>
+                            {% if (is_granted('DELETE', project) or is_granted('ROLE_DIRECTOR')) %}
+                                <a href="{{ path('_manager_project_opus_remove', {id:project.id, opus_id:o.id}) }}"
+                                   class="icon-remove"></a></li>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td><p>{% trans %}happyr.user.project.project.show.opuses.empty{% endtrans %}</p></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </section>
+    </section>
+{% endblock %}
+
+{% block asidecontent %}
+    {{ parent() }}
+    {% if is_granted('CREATE', project)  or is_granted('ROLE_DIRECTOR') %}
+        <section id="project-show-sidebar-extend" class="bordertop">
+            <h3>{% trans %}happyr.user.project.project.show.sidebar.headline{% endtrans %}</h3>
+            {% if is_granted('MASTER', project)  or is_granted('ROLE_DIRECTOR') %}
+                <section>
+                    <h4>{% trans %}happyr.user.project.project.show.sidebar.users.headline{% endtrans %}</h4>
+                    {{ form(userForm) }}
+                </section>
+            {% endif %}
+            <section>
+                <h4>{% trans %}happyr.user.project.project.show.sidebar.opuses.headline{% endtrans %}</h4>
+                {{ form(opusForm) }}
+            </section>
+        </section>
+    {% endif %}
+{% endblock %}

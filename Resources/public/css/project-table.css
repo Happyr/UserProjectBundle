@@ -1,0 +1,30 @@
+.project-table tr td {
+    text-align: center;
+    width: 18%;
+}
+
+.project-table tr td:first-of-type {
+    padding-left: 0.3em;
+    text-align: left;
+    width: 50%;
+}
+
+.project-table tr td:last-of-type {
+    padding-right: 0.3em;
+    text-align: right;
+    width: 14%;
+}
+
+.project-item {
+    margin-bottom: 1.5em;
+}
+
+.project-item th {
+    padding-left: 0.3em;
+    text-align: left;
+}
+
+.project-item td:last-of-type {
+    text-align: center;
+    width: 10%;
+}

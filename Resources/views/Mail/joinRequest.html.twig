@@ -1,0 +1,11 @@
+{% extends "CarlinCommunicationMailerBundle:Mail:mail.html.twig" %}
+
+{% block subject %}{% trans from "mail" %}happyr.user.project.joinRequest.subject{% endtrans %}{% endblock subject %}
+
+{% block mail_header %}
+    {% include "CarlinCommunicationMailerBundle:Mail:user.header.html.twig" with {user:admin} %}
+{% endblock %}
+
+{% block mail_content %}
+    {% include "HappyRUserProjectBundle:Mail:joinRequest.content.html.twig" %}
+{% endblock %}

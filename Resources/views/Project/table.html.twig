@@ -1,0 +1,39 @@
+<table class="item-list project-table zebra">
+    <thead>
+    <tr>
+        <th>{% trans %}happyr.user.project.project.index.table.name{% endtrans %}</th>
+        <th>{% trans %}happyr.user.project.project.index.table.members{% endtrans %}</th>
+        <th>{% trans %}happyr.user.project.project.index.table.opuses{% endtrans %}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for project in projects %}
+        <tr>
+            <td>
+                {%- if not requestToJoin or is_granted('ROLE_DIRECTOR') -%}
+                    <a href="{{ path('_manager_project_show', { 'id': project.id }) }}">{{ project.name }}</a>
+                {%- else -%}
+                    {{ project.name }}
+                {%- endif -%}
+            </td>
+            <td>{{ project.users|length }}</td>
+            <td>{{ project.opuses|length }}</td>
+            <td>
+                {%- if requestToJoin -%}
+                    <a href="{{ path('_manager_project_join', {id: project.id}) }}">
+                        {%- trans %}happyr.user.project.project.index.request{% endtrans -%}
+                    </a>
+                {%- endif -%}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="3">
+                {%- trans %}happyr.user.project.project.index.no_projects{% endtrans -%}
+            </td>
+            <td></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

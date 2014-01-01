@@ -1,0 +1,337 @@
+<?php
+
+namespace HappyR\UserProjectBundle\Entity;
+
+use HappyR\IdentifierInterface;
+use HappyR\UserProjectBundle\Manager\PermissionManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Project
+ *
+ * @ORM\Table(name="CompanyProject")
+ * @ORM\Entity(repositoryClass="HappyR\UserProjectBundle\Entity\ProjectRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Project
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var ArrayCollection
+     *
+     * TODO change this
+     * @ORM\ManyToMany(targetEntity="Eastit\UserBundle\Entity\User")
+     * @ORM\JoinTable(name="CompanyProjects_Users")
+     */
+    protected $users;
+
+    /**
+     * @var ArrayCollection
+     *
+     * TODO change this
+     * @ORM\OneToMany(targetEntity="Eastit\Lego\OpusBundle\Entity\Opus", mappedBy="project", cascade={"persist"})
+     */
+    protected $objects;
+
+    /**
+     * @var bool public
+     *
+     * This indicates if it is a public project that users can request to join.
+     * A private project has always one user and is pretty much hidden from everyone
+     *
+     * @ORM\Column(type="boolean")
+     *
+     */
+    protected $public = true;
+
+    /**
+     * @var array permissions
+     *
+     * @ORM\Column(type="array")
+     */
+    protected $permissions;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(message="happyr.user.project.name.blank")
+     * @Assert\Length(min=2,max=250,
+     *              minMessage="happyr.user.project.name.short",maxMessage="happyr.user.project.name.long")
+     */
+    protected $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    protected $description;
+
+    /**
+     * @var \Datetime $createdAt
+     *
+     * @ORM\Column(name="createdAt", type="datetime")
+     */
+    protected $createdAt;
+
+    /**
+     * @var \Datetime $updatedAt
+     *
+     * @ORM\Column(name="updatedAt", type="datetime")
+     */
+    protected $updatedAt;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->objects = new ArrayCollection();
+        $this->permissions = array();
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * Set permissions for user
+     *
+     * @param IdentifierInterface &$user
+     * @param string $mask
+     *
+     * @return $this
+     */
+    public function setPermission(IdentifierInterface &$user, $mask)
+    {
+        $this->permissions[$user->getId()] = $mask;
+
+        return $this;
+    }
+
+    /**
+     * Get the permissions for this user on this project
+     *
+     * @param IdentifierInterface $user
+     *
+     * @return string
+     */
+    public function getPermission(IdentifierInterface $user)
+    {
+        if (isset($this->permissions[$user->getId()])) {
+            return $this->permissions[$user->getId()];
+        }
+
+        return 'NONE';
+    }
+
+    /**
+     * Revoke persmissions for a user
+     *
+     * @param IdentifierInterface &$user
+     *
+     * @return $this
+     */
+    public function revokePermissions(IdentifierInterface &$user)
+    {
+        if (isset($this->permissions[$user->getId()])) {
+            unset($this->permissions[$user->getId()]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add user
+     *
+     * @param UserInterface &$user
+     *
+     * @return Project
+     */
+    public function addUser(UserInterface &$user)
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove an user
+     *
+     * @param UserInterface &$user
+     *
+     * @return boolean
+     */
+    public function removeUser(UserInterface &$user)
+    {
+        return $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return ArrayCollection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Project
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Project
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Add objects
+     *
+     * @param IdentifierInterface &$object
+     *
+     * @return $this
+     */
+    public function addObject(IdentifierInterface &$object)
+    {
+        if (!$this->objects->contains($object)) {
+            $this->objects->add($object);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove an object
+     *
+     * @param IdentifierInterface &$object
+     *
+     * @return bool
+     */
+    public function removeOpus(IdentifierInterface &$object)
+    {
+        return $this->objects->removeElement($object);
+    }
+
+    /**
+     * Get objects
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getObjects()
+    {
+        return $this->objects;
+    }
+
+    /**
+     *
+     * @param boolean $public
+     *
+     * @return $this
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return boolean
+     */
+    public function isPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     *
+     * @return \Datetime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     *
+     * @return \Datetime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+}

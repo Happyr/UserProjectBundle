@@ -1,0 +1,80 @@
+happyr.user.project:
+  project:
+    delete:
+      heading: 'Remove project'
+      paragraph: 'Deleting a project also removes access for all users invited to the project. Job ads will not be deleted.'
+      paragraph2: 'Use the button below to delete <b>%%project%%</b>'
+    show:
+      projects:
+        permissions: Permissions
+        heading: 'User projects'
+        desciption: 'Here is a list of all the projects the user is a member of.'
+        empty: 'This user is not a member of any projects.'
+      sidebar:
+        users:
+          headline: 'Add users'
+        opuses:
+          headline: 'Add adverts'
+        headline: 'Extend the project'
+      opuses:
+        heading: Adverts
+        description: 'These adverts are part of the project. Click on the X to remove them.'
+        empty: 'There are no adverts in this project yet.'
+      users:
+        heading: 'Project members'
+        description: 'These users are members of the project. Click on the X to remove them.'
+        empty: 'There are no users in this project yet.'
+    edit:
+      heading: Edit
+    form:
+      users: Members
+      name: 'Project name'
+      description: 'Project description'
+      user:
+        label: 'Choose users'
+        help: 'Choose users that you want to participate in this project'
+      opus:
+        label: 'Choose adverts'
+        help: 'Choose adverts that you want to be part of this project'
+    index:
+      table:
+        name: Name
+        description: Description
+        opuses: Adverts
+        members: Members
+      my_projects: 'My projects'
+      heading: 'All projects'
+      request: Join!
+      company_projects: 'All projects within my company'
+      no_projects: 'There is no projects here yet'
+      paragraph: 'This is your project page. Use projects to invite and collaborate with colleagues.'
+    sidebar:
+      remove: Remove
+      projects: 'All projects'
+      create: 'Create new'
+      edit: Edit
+    base:
+      title: Project
+    flash:
+      created: 'The project has been removed'
+      updated: 'The project has been updated'
+      user:
+        removed: 'The user is removed from the project'
+        leave: 'You have left the project'
+        error: 'An error occurred. Try again.'
+        added: 'A new user has been added to the project'
+        join: 'You have sent a request to access this project'
+      opus:
+        removed: 'The advert is removed from the project'
+        added: 'A new advert has been added to the project'
+        other_project: 'This advert belongs to another project which you don''t have permissions to. '
+        is_null: 'You have to choose an advert before you press "Add".'
+    new:
+      heading: 'Create new project'
+      paragraph: 'If you want to collaborate with a colleague you could create a project and invite your colleagues and adverts.'
+  mask:
+    VIEW: Watcher
+    EDIT: 'Manage applications and adverts'
+    CREATE: 'Create new adverts'
+    DELETE: 'Create and close adverts'
+    MASTER: Administrator

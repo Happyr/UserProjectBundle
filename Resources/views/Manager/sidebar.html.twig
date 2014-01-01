@@ -1,0 +1,22 @@
+<ul id="menu" role="navigation">
+    <li><a class="button" href="{{ path('_manager_projects') }}">
+            {% trans %}happyr.user.project.project.sidebar.projects{% endtrans %}
+        </a></li>
+
+    <li><a class="button" href="{{ path('_manager_project_create') }}">
+            {% trans %}happyr.user.project.project.sidebar.create{% endtrans %}
+        </a></li>
+
+    {% if project is defined %}
+        {% if is_granted('MASTER', project) or is_granted('ROLE_DIRECTOR') %}
+            <li><a class="button" href="{{ path('_manager_project_edit', {id:project.id}) }}">
+                    {% trans %}happyr.user.project.project.sidebar.edit{% endtrans %}
+                </a></li>
+
+            <li><a class="button" href="{{ path('_manager_project_delete', {id:project.id}) }}"">
+                {% trans %}happyr.user.project.project.sidebar.remove{% endtrans %}
+                </a></li>
+        {% endif %}
+
+    {% endif %}
+</ul>
