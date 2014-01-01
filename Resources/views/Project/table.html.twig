@@ -12,7 +12,7 @@
         <tr>
             <td>
                 {%- if not requestToJoin or is_granted('ROLE_DIRECTOR') -%}
-                    <a href="{{ path('_manager_project_show', { 'id': project.id }) }}">{{ project.name }}</a>
+                    <a href="{{ path('happyr_user_project_project_show', { 'id': project.id }) }}">{{ project.name }}</a>
                 {%- else -%}
                     {{ project.name }}
                 {%- endif -%}
@@ -21,7 +21,7 @@
             <td>{{ project.opuses|length }}</td>
             <td>
                 {%- if requestToJoin -%}
-                    <a href="{{ path('_manager_project_join', {id: project.id}) }}">
+                    <a href="{{ path('happyr_user_project_project_join_request', {id: project.id}) }}">
                         {%- trans %}happyr.user.project.project.index.request{% endtrans -%}
                     </a>
                 {%- endif -%}

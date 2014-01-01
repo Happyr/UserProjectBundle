@@ -26,7 +26,7 @@
                         {# make sure you are administrator or director, but you cant edit yourself #}
                         {% if (is_granted('MASTER', project) or is_granted('ROLE_DIRECTOR')) and u.id != _user.id %}
                             <td class="no-padding">{{ macro.projectUserPermission(project, u) }}</td>
-                            <td><a href="{{ path('_manager_project_user_remove', {id:project.id, user_id:u.id}) }}"
+                            <td><a href="{{ path('happyr_user_project_user_remove', {id:project.id, user_id:u.id}) }}"
                                    class="icon-remove"></a></td>
                         {% else %}
                             <td></td>
@@ -59,7 +59,7 @@
                         <td>{{ o.headline }} </td>
                         <td>
                             {% if (is_granted('DELETE', project) or is_granted('ROLE_DIRECTOR')) %}
-                                <a href="{{ path('_manager_project_opus_remove', {id:project.id, opus_id:o.id}) }}"
+                                <a href="{{ path('happyr_user_project_object_remove', {id:project.id, opus_id:o.id}) }}"
                                    class="icon-remove"></a></li>
                             {% endif %}
                         </td>

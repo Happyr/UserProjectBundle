@@ -2,7 +2,7 @@
     {% spaceless %}
         {% set options=static('Carlin\\User\\ProjectBundle\\Manager\\PermissionManager', 'validMasks') %}
         <select onchange="
-                $.post('{{ path('_manager_project_user_edit', {id:project.id, user_id:user.id}) }}', {
+                $.post('{{ path('happyr_user_project_project_edit', {id:project.id, user_id:user.id}) }}', {
                 mask: $(this).val()
                 });
                 ">

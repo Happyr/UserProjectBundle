@@ -34,7 +34,7 @@ class ObjectController extends Controller
     public function addAction(Request $request, Project $project)
     {
         $this->get('happyr.user.project.security_manager')->verifyUserIsGranted('CREATE', $project);
-        $response = $this->redirect($this->generateUrl('_manager_project_show', array('id' => $project->getId())));
+        $response = $this->redirect($this->generateUrl('happyr_user_project_project_show', array('id' => $project->getId())));
 
         $objectModel = new OpusModel();
 
@@ -121,6 +121,6 @@ class ObjectController extends Controller
             'happyr.user.project.project.flash.object.removed'
         );
 
-        return $this->redirect($this->generateUrl('_manager_project_show', array('id' => $project->getId())));
+        return $this->redirect($this->generateUrl('happyr_user_project_project_show', array('id' => $project->getId())));
     }
 }

@@ -24,7 +24,10 @@ class ProjectFactoryTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('setName')->with('_private_4711')->andReturn($project)
             ->shouldReceive('setPublic')->with(false)->andReturn($project);
 
-        $factory=new ProjectFactory();
+        $factory=new ProjectFactory(
+            m::mock('Doctrine\Common\Persistence\ObjectManager'),
+            m::mock('HappyR\UserProjectBundle\Manager\PermissionManager')
+        );
 
         $factory->makePrivate($project, $user);
     }

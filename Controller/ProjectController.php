@@ -88,7 +88,7 @@ class ProjectController extends Controller
 
         $this->get('session')->getFlashbag()->add('success', 'happyr.user.project.project.flash.user.leave');
 
-        return $this->redirect($this->generateUrl('_manager_projects', array('id' => $project->getId())));
+        return $this->redirect($this->generateUrl('happyr_user_project_project_index'));
     }
 
     /**
@@ -209,7 +209,7 @@ class ProjectController extends Controller
 
                 $this->get('session')->getFlashbag()->add('success', 'happyr.user.project.project.flash.deleted');
 
-                return $this->redirect($this->generateUrl('_manager_projects'));
+                return $this->redirect($this->generateUrl('happyr_user_project_project_index'));
             }
         }
 
@@ -261,6 +261,6 @@ class ProjectController extends Controller
 
         $this->get('session')->getFlashbag()->add('success', 'happyr.user.project.project.flash.user.join');
 
-        return $this->redirect($this->generateUrl('_manager_projects'));
+        return $this->redirect($this->generateUrl('happyr_user_project_project_index'));
     }
 }

@@ -60,15 +60,15 @@ class UserController extends Controller
             );
 
             if ($project->isPublic()) {
-                return $this->redirect($this->generateUrl('_manager_project_show', array('id' => $project->getId())));
+                return $this->redirect($this->generateUrl('happyr_user_project_project_show', array('id' => $project->getId())));
             } else {
-                return $this->redirect($this->generateUrl('_manager_projects'));
+                return $this->redirect($this->generateUrl('happyr_user_project_project_index'));
             }
         }
 
         //if you try to add a user that already is a part of the project
         if ($project->getUsers()->contains($userModel->getUser())) {
-            return $this->redirect($this->generateUrl('_manager_project_show', array('id' => $project->getId())));
+            return $this->redirect($this->generateUrl('happyr_user_project_project_show', array('id' => $project->getId())));
         }
 
         /**
@@ -108,7 +108,7 @@ class UserController extends Controller
             'happyr.user.project.project.flash.user.added'
         );
 
-        return $this->redirect($this->generateUrl('_manager_project_show', array('id' => $project->getId())));
+        return $this->redirect($this->generateUrl('happyr_user_project_project_show', array('id' => $project->getId())));
     }
 
     /**
@@ -177,6 +177,6 @@ class UserController extends Controller
             return $this->redirect($request->query->get('redirect'));
         }
 
-        return $this->redirect($this->generateUrl('_manager_project_show', array('id' => $project->getId())));
+        return $this->redirect($this->generateUrl('happyr_user_project_project_show', array('id' => $project->getId())));
     }
 }
