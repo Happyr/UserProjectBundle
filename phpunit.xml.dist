@@ -10,12 +10,12 @@
          stopOnFailure="false"
          syntaxCheck="false"
          codecoverage="true"
-         bootstrap="Tests/bootstrap.php"
+         bootstrap="./vendor/autoload.php"
         >
 
     <formatter type="clover" usefile="false"/>
     <testsuites>
-        <testsuite name="HappyR Mailer Test Suite">
+        <testsuite name="HappyR Test Suite">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>
@@ -30,7 +30,6 @@
         <blacklist>
             <directory>./vendor/</directory>
             <directory>./Tests/</directory>
-            <directory>./DataFixtures/</directory>
             <directory>./Resources/</directory>
             <directory>./DependencyInjection/</directory>
 

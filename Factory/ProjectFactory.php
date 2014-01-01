@@ -2,7 +2,6 @@
 
 namespace HappyR\UserProjectBundle\Factory;
 
-use Carlin\BaseBundle\Factory\BaseFactory;
 use HappyR\IdentifierInterface;
 use HappyR\UserProjectBundle\Entity\Project;
 
@@ -12,7 +11,7 @@ use HappyR\UserProjectBundle\Entity\Project;
  * @author Tobias Nyholm
  *
  */
-class ProjectFactory extends BaseFactory
+class ProjectFactory
 {
     /**
      * Returns a new object with all empty values
