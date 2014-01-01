@@ -63,6 +63,7 @@ class ObjectController extends Controller
         /*
          * Check if the opus belongs to an other project
          */
+        //FIXME this is the only time we do $opus->getProject(). Remove it
         if ($opus->getProject() != null) {
             $opusProject = $opus->getProject();
             if (!$this->get('carlin.user.company.security_manager')->userIsGrantedCheck(

@@ -1,0 +1,34 @@
+HappyR\UserProjectBundle\Entity\Project:
+  type: entity
+  table: HappyRUserProject
+  repositoryClass: HappyR\UserProjectBundle\Entity\ProjectRepository
+  lifecycleCallbacks:
+    preUpdate: [updateUpdatedAt]
+  oneToMany:
+    objects:
+      targetEntity: %happyr.user.project.orm.object_class%
+      mappedBy: %happyr.user.project.orm.mapped_by%
+      cascade: [persist]
+  manyToMany:
+    users:
+      targetEntity: %happyr.user.project.orm.user_class%
+      joinTable: HappyRUserProject_Users
+  id:
+    id:
+      type: integer
+      generator: {strategy: AUTO}
+  fields:
+    public:
+      type: boolean
+    permissions:
+      type: array
+    name:
+      type: string
+      length: 255
+    description:
+      type: text
+      nullable: true
+    createdAt:
+      type: datetime
+    updatedAt:
+      type: datetime

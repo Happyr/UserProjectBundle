@@ -5,43 +5,30 @@ namespace HappyR\UserProjectBundle\Entity;
 use HappyR\IdentifierInterface;
 use HappyR\UserProjectBundle\Manager\PermissionManager;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Project
  *
- * @ORM\Table(name="CompanyProject")
- * @ORM\Entity(repositoryClass="HappyR\UserProjectBundle\Entity\ProjectRepository")
- * @ORM\HasLifecycleCallbacks()
  */
 class Project
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
      * @var ArrayCollection
      *
-     * TODO change this
-     * @ORM\ManyToMany(targetEntity="Eastit\UserBundle\Entity\User")
-     * @ORM\JoinTable(name="CompanyProjects_Users")
      */
     protected $users;
 
     /**
      * @var ArrayCollection
      *
-     * TODO change this
-     * @ORM\OneToMany(targetEntity="Eastit\Lego\OpusBundle\Entity\Opus", mappedBy="project", cascade={"persist"})
      */
     protected $objects;
 
@@ -51,7 +38,6 @@ class Project
      * This indicates if it is a public project that users can request to join.
      * A private project has always one user and is pretty much hidden from everyone
      *
-     * @ORM\Column(type="boolean")
      *
      */
     protected $public = true;
@@ -59,14 +45,12 @@ class Project
     /**
      * @var array permissions
      *
-     * @ORM\Column(type="array")
      */
     protected $permissions;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank(message="happyr.user.project.name.blank")
      * @Assert\Length(min=2,max=250,
      *              minMessage="happyr.user.project.name.short",maxMessage="happyr.user.project.name.long")
@@ -76,21 +60,18 @@ class Project
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true)
      */
     protected $description;
 
     /**
      * @var \Datetime $createdAt
      *
-     * @ORM\Column(name="createdAt", type="datetime")
      */
     protected $createdAt;
 
     /**
      * @var \Datetime $updatedAt
      *
-     * @ORM\Column(name="updatedAt", type="datetime")
      */
     protected $updatedAt;
 
@@ -103,6 +84,7 @@ class Project
         $this->objects = new ArrayCollection();
         $this->permissions = array();
         $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -309,8 +291,7 @@ class Project
     }
 
     /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
+     * Update timestamp
      */
     public function updateUpdatedAt()
     {

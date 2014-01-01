@@ -39,6 +39,7 @@ class ProjectService
      */
     public function getAdministratorForObject(IdentifierInterface &$object)
     {
+        //FIXME this is the only time we do $object->getProject(). Remove it
         if (null == $project = $object->getProject()) {
             return null;
         }
