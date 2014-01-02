@@ -60,7 +60,7 @@ class SecurityManager
             return true;
         }
 
-        throw new AccessDeniedHttpException('You have no privileges to access this resource.');
+        throw new AccessDeniedHttpException(sprintf('You have no privileges to "%s" this resource.', strtolower($mask)));
     }
 
     /**
