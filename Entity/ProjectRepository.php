@@ -3,7 +3,6 @@
 namespace HappyR\UserProjectBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use HappyR\IdentifierInterface;
 use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**

@@ -2,9 +2,9 @@
 
 namespace HappyR\UserProjectBundle\Entity;
 
-use HappyR\IdentifierInterface;
 use HappyR\UserProjectBundle\Manager\PermissionManager;
 use Doctrine\Common\Collections\ArrayCollection;
+use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
 use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -91,12 +91,12 @@ class Project
     /**
      * Set permissions for user
      *
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      * @param string $mask
      *
      * @return $this
      */
-    public function setPermission(IdentifierInterface &$user, $mask)
+    public function setPermission(ProjectMemberInterface &$user, $mask)
     {
         $this->permissions[$user->getId()] = $mask;
 
@@ -106,11 +106,11 @@ class Project
     /**
      * Get the permissions for this user on this project
      *
-     * @param IdentifierInterface $user
+     * @param ProjectMemberInterface $user
      *
      * @return string
      */
-    public function getPermission(IdentifierInterface $user)
+    public function getPermission(ProjectMemberInterface $user)
     {
         if (isset($this->permissions[$user->getId()])) {
             return $this->permissions[$user->getId()];
@@ -122,11 +122,11 @@ class Project
     /**
      * Revoke persmissions for a user
      *
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      *
      * @return $this
      */
-    public function revokePermissions(IdentifierInterface &$user)
+    public function revokePermissions(ProjectMemberInterface &$user)
     {
         if (isset($this->permissions[$user->getId()])) {
             unset($this->permissions[$user->getId()]);

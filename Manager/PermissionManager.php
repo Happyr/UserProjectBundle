@@ -2,8 +2,9 @@
 
 namespace HappyR\UserProjectBundle\Manager;
 
-use HappyR\IdentifierInterface;
 use HappyR\UserProjectBundle\Entity\Project;
+use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
+use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 
 /**
@@ -50,12 +51,12 @@ class PermissionManager extends BaseAclManager
      * Add an object to a project. This updates the permissions for all users in the project
      *
      * @param Project &$project
-     * @param IdentifierInterface &$object
+     * @param ProjectObjectInterface &$object
      *
      * @return $this
      * @throws \InvalidArgumentException
      */
-    public function addObject(Project &$project, IdentifierInterface &$object)
+    public function addObject(Project &$project, ProjectObjectInterface &$object)
     {
         $project->addObject($object);
         $users = $project->getUsers();
@@ -74,11 +75,11 @@ class PermissionManager extends BaseAclManager
      * Remember to persist the $object as well. Doctrine can't find the object since we cut the relation.
      *
      * @param Project &$project
-     * @param IdentifierInterface &$object
+     * @param ProjectObjectInterface &$object
      *
      * @return $this
      */
-    public function removeObject(Project &$project, IdentifierInterface &$object)
+    public function removeObject(Project &$project, ProjectObjectInterface &$object)
     {
         $project->removeObject($object);
         $users = $project->getUsers();
@@ -94,13 +95,13 @@ class PermissionManager extends BaseAclManager
      * Add a user to a project. This gives the user the proper permissions to all objectes in the project
      *
      * @param Project &$project
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      * @param string $mask
      *
      * @return $this
      * @throws \InvalidArgumentException
      */
-    public function addUser(Project &$project, IdentifierInterface &$user, $mask = 'VIEW')
+    public function addUser(Project &$project, ProjectMemberInterface &$user, $mask = 'VIEW')
     {
         $project->addUser($user);
 
@@ -111,11 +112,11 @@ class PermissionManager extends BaseAclManager
      * Remove a user from the project
      *
      * @param Project &$project
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      *
      * @return $this
      */
-    public function removeUser(Project &$project, IdentifierInterface &$user)
+    public function removeUser(Project &$project, ProjectMemberInterface &$user)
     {
         $project->removeUser($user);
 
@@ -127,14 +128,14 @@ class PermissionManager extends BaseAclManager
      *
      *
      * @param Project &$project
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      * @param string $mask
      *
      * @return $this;
      *
      * @throws \ErrorException
      */
-    public function changePermissions(Project &$project, IdentifierInterface &$user, $mask)
+    public function changePermissions(Project &$project, ProjectMemberInterface &$user, $mask)
     {
         $mask = strtoupper($mask);
         $validMasks = self::$validMasks;
@@ -176,11 +177,11 @@ class PermissionManager extends BaseAclManager
      * Remove permissions for the user
      *
      * @param Project &$project
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      *
      * @return $this
      */
-    private function revokePermissions(Project &$project, IdentifierInterface &$user)
+    private function revokePermissions(Project &$project, ProjectMemberInterface &$user)
     {
         $project->revokePermissions($user);
 

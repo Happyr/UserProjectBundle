@@ -5,6 +5,7 @@ namespace HappyR\UserProjectBundle\Services;
 
 use HappyR\UserProjectBundle\Entity\Project;
 use Doctrine\Common\Persistence\ObjectManager;
+use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
 
 /**
  * Class ProjectService
@@ -31,13 +32,12 @@ class ProjectService
     /**
      * Get the administrator for an object
      *
-     * @param IdentifierInterface &$object
+     * @param ProjectObjectInterface &$object
      *
      * @return User|null
      */
-    public function getAdministratorForObject(IdentifierInterface &$object)
+    public function getAdministratorForObject(ProjectObjectInterface &$object)
     {
-        //FIXME this is the only time we do $object->getProject(). Remove it
         if (null == $project = $object->getProject()) {
             return null;
         }

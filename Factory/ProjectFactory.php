@@ -3,7 +3,6 @@
 namespace HappyR\UserProjectBundle\Factory;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use HappyR\IdentifierInterface;
 use HappyR\UserProjectBundle\Entity\Project;
 use HappyR\UserProjectBundle\Manager\PermissionManager;
 use HappyR\UserProjectBundle\Model\ProjectMemberInterface;

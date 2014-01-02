@@ -14,8 +14,7 @@ use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
 class ProjectEvent extends BaseEvent
 {
     /**
-     * @var IdentifierInterface user
-     *
+     * @var ProjectMemberInterface user
      *
      */
     protected $user;
