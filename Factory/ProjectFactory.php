@@ -90,8 +90,8 @@ class ProjectFactory
             $this->permissionManager->removeUser($project, $user);
         }
 
-        $opuses = $project->getObjects();
-        foreach ($opuses as $o) {
+        $objects = $project->getObjects();
+        foreach ($objects as $o) {
             $o->removeProject();
             $this->em->persist($o);
         }

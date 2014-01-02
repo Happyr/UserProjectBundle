@@ -18,7 +18,7 @@ happyr.user.project:
         name: Namn
         description: Beskivning
         members: Medlemmar
-        opuses: Annonser
+        objectses: Annonser
     form:
       name: 'Projektets namn'
       description: 'Projektets beskrivning'
@@ -26,7 +26,7 @@ happyr.user.project:
       user:
         label: 'Välj användare'
         help: 'Välj en användare som du vill ska vara med i detta projekt'
-      opus:
+      objects:
         label: 'Välj jobbannons'
         help: 'Välj en jobbannons som du vill ska vara med i detta projekt'
     new:
@@ -39,10 +39,6 @@ happyr.user.project:
         heading: Projektmedlemmar
         description: 'Dessa användare ingår i projektet. Klicka på krysset för att ta bort dem från projektet.'
         empty: 'Det finns inga användare i detta projekt ännu.'
-      opuses:
-        heading: Jobbannonser
-        description: 'Dessa annonser ingår i projektet. Klicka på krysset för att ta bort dem från projektet.'
-        empty: 'Det finns inga annonser i detta projekt ännu.'
       projects:
         heading: 'Användarens projekt'
         desciption: 'Här är en lista på dem projekt som anvädaren är medlem i.'
@@ -52,26 +48,12 @@ happyr.user.project:
         headline: 'Utöka projektet'
         users:
           headline: 'Lägg till användare'
-        opuses:
+        objectses:
           headline: 'Lägg till annonser'
     delete:
       heading: 'Ta bort projekt'
       paragraph: 'När du tar bort ett projekt så försvinner projektmedlemmarnas rättigheter till jobbannonserna. Inga annonser kommer att raderas. Observera att chefer alltid har rättigheter till alla jobbannonser.'
       paragraph2: 'Klicka på knappen nedan för att ta bort <b>%%project%%</b>.'
-    flash:
-      created: 'Projektet är borttaget'
-      updated: 'Projektet är uppdaterat'
-      user:
-        removed: 'Användaren är borttagen från projektet'
-        leave: 'Du har nu lämnat detta projekt'
-        join: 'Du har skickat ett begäran att få tillgång till detta projekt.'
-        added: 'En ny användare har lagts till i projektet'
-        error: 'Det blev något fel. Försök igen.'
-      opus:
-        removed: 'Jobbannonsen är bortttagen från projektet'
-        added: 'En ny jobbannons har lagts till i projektet'
-        other_project: 'Denna jobbannons tillhör redan ett annat projekt eller användare. Du har inte rättigheter till att ändra denna annons.'
-        is_null: 'Du måste välja en jobbannons innan du trycker på "Lägg till".'
   mask:
     VIEW: Åskådare
     EDIT: 'Hantera ansökningar & annonser'

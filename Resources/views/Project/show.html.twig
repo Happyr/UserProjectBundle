@@ -45,9 +45,9 @@
         </section>
 
         <section>
-            <h3>{% trans %}happyr.user.project.project.show.opuses.heading{% endtrans %}</h3>
+            <h3>{% trans %}happyr.user.project.project.show.objects.heading{% endtrans %}</h3>
 
-            <p>{% trans %}happyr.user.project.project.show.opuses.description{% endtrans %}</p>
+            <p>{% trans %}happyr.user.project.project.show.objects.description{% endtrans %}</p>
 
             <table class="item-list project-item zebra">
                 <tr>
@@ -59,14 +59,14 @@
                         <td>{{ o.headline }} </td>
                         <td>
                             {% if (is_granted('DELETE', project) or is_granted('ROLE_DIRECTOR')) %}
-                                <a href="{{ path('happyr_user_project_object_remove', {id:project.id, opus_id:o.id}) }}"
+                                <a href="{{ path('happyr_user_project_object_remove', {id:project.id, object_id:o.id}) }}"
                                    class="icon-remove"></a></li>
                             {% endif %}
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td><p>{% trans %}happyr.user.project.project.show.opuses.empty{% endtrans %}</p></td>
+                        <td><p>{% trans %}happyr.user.project.project.show.objects.empty{% endtrans %}</p></td>
                         <td></td>
                     </tr>
                 {% endfor %}

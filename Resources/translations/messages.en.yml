@@ -13,13 +13,9 @@ happyr.user.project:
       sidebar:
         users:
           headline: 'Add users'
-        opuses:
+        objectes:
           headline: 'Add adverts'
         headline: 'Extend the project'
-      opuses:
-        heading: Adverts
-        description: 'These adverts are part of the project. Click on the X to remove them.'
-        empty: 'There are no adverts in this project yet.'
       users:
         heading: 'Project members'
         description: 'These users are members of the project. Click on the X to remove them.'
@@ -33,14 +29,14 @@ happyr.user.project:
       user:
         label: 'Choose users'
         help: 'Choose users that you want to participate in this project'
-      opus:
+      object:
         label: 'Choose adverts'
         help: 'Choose adverts that you want to be part of this project'
     index:
       table:
         name: Name
         description: Description
-        opuses: Adverts
+        objectes: Adverts
         members: Members
       my_projects: 'My projects'
       heading: 'All projects'
@@ -55,20 +51,6 @@ happyr.user.project:
       edit: Edit
     base:
       title: Project
-    flash:
-      created: 'The project has been removed'
-      updated: 'The project has been updated'
-      user:
-        removed: 'The user is removed from the project'
-        leave: 'You have left the project'
-        error: 'An error occurred. Try again.'
-        added: 'A new user has been added to the project'
-        join: 'You have sent a request to access this project'
-      opus:
-        removed: 'The advert is removed from the project'
-        added: 'A new advert has been added to the project'
-        other_project: 'This advert belongs to another project which you don''t have permissions to. '
-        is_null: 'You have to choose an advert before you press "Add".'
     new:
       heading: 'Create new project'
       paragraph: 'If you want to collaborate with a colleague you could create a project and invite your colleagues and adverts.'

@@ -163,7 +163,7 @@ class PermissionManager extends BaseAclManager
         $this->addUserAce($project, $user, $bitMask);
 
         /*
-         * Add some permissions on the $project->getOpuses for the $user
+         * Add some permissions on the $project->getObjects for the $user
          */
         $objectes = $project->getObjects();
         foreach ($objectes as $object) {
