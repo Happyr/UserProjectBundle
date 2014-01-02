@@ -24,6 +24,7 @@ class ProjectRepository extends EntityRepository
      */
     public function findPrivateProject(ProjectMemberInterface &$user)
     {
+        //TODO change this, we cant trust the name...
         return $this->findOneBy(
             array(
                 'name' => '_private_' . $user->getId(),
@@ -42,7 +43,6 @@ class ProjectRepository extends EntityRepository
      */
     public function findUserProjects(ProjectMemberInterface &$user)
     {
-
         $query = $this->getUserProjectsQb()
             ->setParameter('user_id', $user->getId())
             ->getQuery();

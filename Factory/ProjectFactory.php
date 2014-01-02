@@ -13,6 +13,8 @@ use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
  *
  * @author Tobias Nyholm
  *
+ *
+ * A Project factory creates, saves and removes projects
  */
 class ProjectFactory
 {
@@ -63,6 +65,12 @@ class ProjectFactory
             ->setPublic(false);
     }
 
+    /**
+     * Saves the projects
+     *
+     * @param Project $project
+     *
+     */
     public function create(Project &$project)
     {
         $this->em->persist($project);

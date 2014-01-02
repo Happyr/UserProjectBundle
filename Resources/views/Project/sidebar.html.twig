@@ -7,7 +7,7 @@
             {% trans %}happyr.user.project.project.sidebar.create{% endtrans %}
         </a></li>
 
-    {% if project is defined %}
+    {% if project is defined and project.id is not null%}
 
         <li><a class="button" href="{{ path('happyr_user_project_project_edit', {id:project.id}) }}">
                 {% trans %}happyr.user.project.project.sidebar.edit{% endtrans %}
@@ -15,6 +15,10 @@
 
         <li><a class="button" href="{{ path('happyr_user_project_project_delete', {id:project.id}) }}">
             {% trans %}happyr.user.project.project.sidebar.remove{% endtrans %}
+            </a></li>
+
+        <li><a class="button" href="{{ path('happyr_user_project_project_leave', {id:project.id}) }}">
+                {% trans %}happyr.user.project.project.sidebar.leave{% endtrans %}
             </a></li>
 
     {% endif %}

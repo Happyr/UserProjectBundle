@@ -2,6 +2,7 @@ parameters:
   happyr.user.project.permission_manager.class: HappyR\UserProjectBundle\Manager\PermissionManager
   happyr.user.project.mailer.class: HappyR\UserProjectBundle\Services\MailerService
   happyr.user.project.project_manager.class: HappyR\UserProjectBundle\Manager\ProjectManager
+  happyr.user.project.secure_project_manager.class: HappyR\UserProjectBundle\Manager\SecureProjectManager
   happyr.user.project.project_factory.class: HappyR\UserProjectBundle\Factory\ProjectFactory
   happyr.user.project.project_service.class: HappyR\UserProjectBundle\Services\ProjectService
   happyr.user.project.security_manager.class: HappyR\UserProjectBundle\Manager\SecurityManager
@@ -18,6 +19,17 @@ services:
       - @doctrine.orm.entity_manager
       - @happyr.user.project.permission_manager
       - @happyr.user.project.project_factory
+      - @event_dispatcher
+
+  happyr.user.project.secure_project_manager:
+    class: %happyr.user.project.secure_project_manager.class%
+    arguments:
+      - @doctrine.orm.entity_manager
+      - @happyr.user.project.permission_manager
+      - @happyr.user.project.project_factory
+      - @event_dispatcher
+    calls:
+        - [setSecurityManager, [@happyr.user.project.security_manager]]
 
   happyr.user.project.project_factory:
     class: %happyr.user.project.project_factory.class%

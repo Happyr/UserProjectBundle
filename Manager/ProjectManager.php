@@ -2,12 +2,16 @@
 
 namespace HappyR\UserProjectBundle\Manager;
 
+use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 use HappyR\UserProjectBundle\Entity\Project;
+use HappyR\UserProjectBundle\Events\JoinRequestEvent;
 use HappyR\UserProjectBundle\Factory\ProjectFactory;
 use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
 use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
+use HappyR\UserProjectBundle\ProjectEvents;
 use HappyR\UserProjectBundle\Services\MailerService;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class ProjectManager
@@ -39,33 +43,40 @@ class ProjectManager
     protected $projectFactory;
 
     /**
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface dispatcher
+     *
+     */
+    protected $dispatcher;
+
+    /**
      * @param ObjectManager $om
      * @param PermissionManager $pm
      * @param ProjectFactory $pf
+     * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(
         ObjectManager $om,
         PermissionManager $pm,
-        ProjectFactory $pf
+        ProjectFactory $pf,
+        EventDispatcherInterface $dispatcher
     ) {
         $this->em = $om;
         $this->permissionManager = $pm;
         $this->projectFactory = $pf;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
      * Add a request to join the project
      *
      * @param Project &$project
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      *
      */
-    public function addJoinRequest(Project &$project, IdentifierInterface &$user)
+    public function addJoinRequest(Project &$project, ProjectMemberInterface &$user)
     {
-
-        //TODO fix this
-        /*
-         * get emails
+        /**
+         * Get admins
          */
         $administrators = array();
         foreach ($project->getUsers() as $u) {
@@ -74,19 +85,18 @@ class ProjectManager
             }
         }
 
-        //send the emails
-        foreach ($administrators as $administrator) {
-            $this->mailer->sendJoinRequest($project, $administrator, $user);
-        }
+        //fire event
+        $event = new JoinRequestEvent($project, $administrators, $user);
+        $this->dispatcher->dispatch(ProjectEvents::USER_JOIN_REQUEST, $event);
     }
 
     /**
      * Remove private projects are revoke permission from other projects
      *
-     * @param IdentifierInterface &$user
+     * @param ProjectMemberInterface &$user
      *
      */
-    public function removeUserFromAllProjects(IdentifierInterface &$user)
+    public function removeUserFromAllProjects(ProjectMemberInterface &$user)
     {
         $repo = $this->em->getRepository('HappyRUserProjectBundle:Project');
         $privateProject = $repo->findPrivateProject($user);
@@ -99,94 +109,102 @@ class ProjectManager
         }
     }
 
-    public function addUser(Project $project, ProjectMemberInterface $user)
+    /**
+     * Add a user to a project
+     *
+     *
+     * @param Project $project
+     * @param ProjectMemberInterface &$user
+     *
+     * @return bool
+     * @throws \InvalidArgumentException
+     */
+    public function addUser(Project $project, ProjectMemberInterface &$user)
     {
         //if you try to add a user that already is a part of the project
-        if ($project->getUsers()->contains($userModel->getUser())) {
-            return $this->redirect($this->generateUrl('happyr_user_project_project_show', array('id' => $project->getId())));
+        if ($project->getUsers()->contains($user)) {
+            return true;
         }
 
         /**
          * Make sure that the project is a public project, or create a new public project
          */
         if (!$project->isPublic()) {
-            $users = $project->getUsers();
-
-            //we can be sure that a private project only have one user
-            $user = $users[0];
-
-            $project = $this->projectFactory->getNew();
-            $project->setName(date('Ymd') . ' - ' . $user->getUsername())
-                ->setCompany($user->getCompany());
-
-            $this->projectFactory->create($project);
-            $permissionManager->addUser($project, $user, 'MASTER');
-
-            //add the opus onto this new project
-            $permissionManager->addOpus($project, $opus);
+            throw new \InvalidArgumentException('You can not add a user to a private project');
         }
 
-        $newUser = $userModel->getUser();
-        $permissionManager->addUser($project, $newUser);
+        $this->permissionManager->addUser($project, $user);
 
-        $em = $this->getEntityManager();
-        $em->persist($project);
-        $em->flush();
+        $this->em->persist($project);
+        $this->em->flush();
 
         //fire event
-        $event = new ProjectEvent($project, $newUser);
-        $this->get('event_dispatcher')->dispatch(ProjectEvents::USER_INVITED, $event);
+        $event = new ProjectEvent($project, $user);
+        $this->dispatcher->dispatch(ProjectEvents::USER_INVITED, $event);
     }
 
-    public function removeUser(Project $project, ProjectMemberInterface $user)
+    /**
+     * Remove user
+     *
+     * @param Project $project
+     * @param ProjectMemberInterface &$user
+     *
+     */
+    public function removeUser(Project $project, ProjectMemberInterface &$user)
     {
         $this->permissionManager->removeUser($project, $user);
 
-        $em = $this->getEntityManager();
-        $em->persist($project);
-        $em->flush();
+        $this->em->persist($project);
+        $this->em->flush();
 
     }
 
-    public function addObject(Project $project, ProjectObjectInterface $object)
+    /**
+     * Add object to project.
+     *
+     * WARNING: This will remove the object from any previuos projects
+     *
+     * @param Project $project
+     * @param ProjectObjectInterface $object
+     *
+     * @return boolean
+     */
+    public function addObject(Project $project, ProjectObjectInterface &$object)
     {
         /*
          * Check if the object belongs to an other project
          */
-        //FIXME this is the only time we do $object->getProject(). Remove it
         if ($object->getProject() != null) {
             $objectProject = $object->getProject();
 
-            if (!$this->get('happyr.user.project.security_manager')->userIsGranted(
-                'DELETE',
-                $objectProject
-            )
-            ) {
-                $this->get('session')->getFlashbag()->add(
-                    'fail',
-                    'happyr.user.project.project.flash.object.other_project'
-                );
-
-                return $response;
-            }
+            $this->removeObject($objectProject, $object);
+            $this->em->persist($objectProject);
         }
 
         //add the object to this project
         $this->permissionManager->addObject($project, $object);
 
-        $em = $this->getEntityManager();
-        $em->persist($project);
-        $em->flush();
+        $this->em->persist($project);
+        $this->em->persist($object);
+        $this->em->flush();
+
+        return true;
     }
 
-    public function removeObject(Project $project, ProjectObjectInterface $object)
+    /**
+     * Remove object from project
+     *
+     * @param Project $project
+     * @param ProjectObjectInterface $object
+     *
+     */
+    public function removeObject(Project $project, ProjectObjectInterface &$object)
     {
-        $this->permissionManager->removeOpus($project, $object);
+        $this->permissionManager->removeObject($project, $object);
 
-        $em = $this->getEntityManager();
-        $em->persist($project);
-        $em->persist($object);
-        $em->flush();
+        $this->em->persist($project);
+        $this->em->persist($object);
+        $this->em->flush();
     }
 
     /**
@@ -201,10 +219,7 @@ class ProjectManager
     {
         $this->permissionManager->changePermissions($project, $user, $mask);
 
-        $em = $this->getEntityManager();
-        $em->persist($project);
-        $em->flush();
+        $this->em->persist($project);
+        $this->em->flush();
     }
-
-
 }

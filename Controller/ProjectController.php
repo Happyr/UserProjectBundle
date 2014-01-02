@@ -48,7 +48,6 @@ class ProjectController extends Controller
      *
      * @param Project $project
      *
-     * @ParamConverter("project")
      * @Template()
      *
      * @return array
@@ -68,7 +67,6 @@ class ProjectController extends Controller
      * Remove an user from the project
      *
      * @param Project $project
-     * @ParamConverter("project")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -79,14 +77,11 @@ class ProjectController extends Controller
         $security->verifyProjectIsPublic($project);
 
         $user = $this->getUser();
-        $permissionManager = $this->get('happyr.user.project.permission_manager');
-        $permissionManager->removeUser($project, $user);
+        $this->get('happyr.user.project.permission_manager')->removeUser($project, $user);
 
-        $em = $this->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->persist($project);
         $em->flush();
-
-        $this->get('session')->getFlashbag()->add('success', 'happyr.user.project.project.flash.user.leave');
 
         return $this->redirect($this->generateUrl('happyr_user_project_project_index'));
     }
@@ -135,7 +130,7 @@ class ProjectController extends Controller
         }
 
         return array(
-            'Project' => $project,
+            'project' => $project,
             'form' => $form->createView(),
         );
     }
@@ -145,7 +140,7 @@ class ProjectController extends Controller
      *
      * @param Request $request
      * @param Project $project
-     * @ParamConverter("project")
+     *
      * @Template()
      *
      * @return array
@@ -207,8 +202,6 @@ class ProjectController extends Controller
             if ($form->isValid()) {
                 $this->get('happyr.user.project.project_factory')->remove($project);
 
-                $this->get('session')->getFlashbag()->add('success', 'happyr.user.project.project.flash.deleted');
-
                 return $this->redirect($this->generateUrl('happyr_user_project_project_index'));
             }
         }
@@ -239,8 +232,6 @@ class ProjectController extends Controller
      *
      * @param Project $project
      *
-     * @ParamConverter("project")
-     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function joinRequestAction(Project $project)
@@ -250,16 +241,7 @@ class ProjectController extends Controller
         }
 
         $user = $this->getUser();
-        /*
-         * Make sure that the user is in the project
-         */
-        if ($user->getCompany()->getId() != $project->getCompany()->getId()) {
-            throw new \InvalidArgumentException('The User and the Project does not belong to the same company.');
-        }
-
         $this->get('happyr.user.project.project_manager')->addJoinRequest($project, $user);
-
-        $this->get('session')->getFlashbag()->add('success', 'happyr.user.project.project.flash.user.join');
 
         return $this->redirect($this->generateUrl('happyr_user_project_project_index'));
     }

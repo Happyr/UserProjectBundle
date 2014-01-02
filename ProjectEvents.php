@@ -24,7 +24,7 @@ final class ProjectEvents
      * This event is fired when someone wants to join a project
      *
      * The event listener receives an
-     * HappyR\UserProjectBundle\Events\Project instance.
+     * HappyR\UserProjectBundle\Events\JoinRequestEvent instance.
      *
      * @var string
      */

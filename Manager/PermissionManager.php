@@ -30,9 +30,9 @@ class PermissionManager extends BaseAclManager
      * An array with valid masks. From the least generous to most
      *
      * VIEW - View details about an object and the project
-     * EDIT - Grade applicares, change objectes etc
+     * EDIT - Change objectes etc
      * CREATE - Create new objectes
-     * DELETE - This user may close and remove an object
+     * DELETE - This user may remove an object
      * MASTER - This is the administrator of the project. He allowed to add users, delete users and change permissions
      *
      */
