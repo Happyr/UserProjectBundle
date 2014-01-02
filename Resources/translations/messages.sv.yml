@@ -13,7 +13,7 @@ happyr.user.project:
       paragraph: 'Detta är din projektsida. Projekt är ett utmärkt verktyg om du vill samarbeta med en eller flera kollegor.'
       request: 'Gå med!'
       my_projects: 'Mina projekt'
-      company_projects: 'Alla projekt i mitt företag'
+      company_projects: 'Alla projekt'
       no_projects: 'Det finns inga projekt här ännu.'
       table:
         name: Namn

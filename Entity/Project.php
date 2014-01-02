@@ -243,6 +243,7 @@ class Project
         if (!$this->objects->contains($object)) {
             $this->objects->add($object);
         }
+        $object->setProject($this);
 
         return $this;
     }

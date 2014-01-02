@@ -96,9 +96,7 @@ class ProjectService
         if (!$project) {
             $project = $this->projectFactory->getNew();
             $this->projectFactory->makePrivate($project, $user);
-
-            $this->em->persist($project);
-            $this->em->flush();
+            $this->projectFactory->create($project);
         }
 
         return $project;

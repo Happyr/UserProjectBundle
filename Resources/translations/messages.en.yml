@@ -45,7 +45,7 @@ happyr.user.project:
       my_projects: 'My projects'
       heading: 'All projects'
       request: Join!
-      company_projects: 'All projects within my company'
+      company_projects: 'All projects'
       no_projects: 'There is no projects here yet'
       paragraph: 'This is your project page. Use projects to invite and collaborate with colleagues.'
     sidebar:

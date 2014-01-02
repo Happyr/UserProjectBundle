@@ -37,7 +37,7 @@ services:
 
   happyr.user.project.project_service:
     class: %happyr.user.project.project_service.class%
-    arguments: [@doctrine.orm.entity_manager]
+    arguments: [@doctrine.orm.entity_manager, @happyr.user.project.project_factory]
 
   happyr.user.project.security_manager:
     class: %happyr.user.project.security_manager.class%
