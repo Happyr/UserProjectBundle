@@ -5,6 +5,8 @@ namespace HappyR\UserProjectBundle\Services;
 
 use HappyR\UserProjectBundle\Entity\Project;
 use Doctrine\Common\Persistence\ObjectManager;
+use HappyR\UserProjectBundle\Factory\ProjectFactory;
+use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
 use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
 
 /**
@@ -22,11 +24,20 @@ class ProjectService
     protected $em;
 
     /**
-     * @param ObjectManager $em
+     * @var \HappyR\UserProjectBundle\Factory\ProjectFactory projectFactory
+     *
      */
-    public function __construct(ObjectManager $em)
+    protected $projectFactory;
+
+
+    /**
+     * @param ObjectManager $em
+     * @param ProjectFactory $pf
+     */
+    public function __construct(ObjectManager $em, ProjectFactory $pf)
     {
         $this->em = $em;
+        $this->projectFactory = $pf;
     }
 
     /**
@@ -67,5 +78,29 @@ class ProjectService
         }
 
         return null;
+    }
+
+    /**
+     * This will always return a private project. If there is none at the moment
+     * we will create one.
+     *
+     * @param ProjectMemberInterface $user
+     *
+     * @return Project
+     */
+    public function getUserPrivateProject(ProjectMemberInterface &$user)
+    {
+        $project=$this->em->getRepository('HappyRUserProjectBundle:Project')
+            ->findPrivateProject($user);
+
+        if (!$project) {
+            $project = $this->projectFactory->getNew();
+            $this->projectFactory->makePrivate($project, $user);
+
+            $this->em->persist($project);
+            $this->em->flush();
+        }
+
+        return $project;
     }
 }

@@ -62,6 +62,9 @@ class ProjectFactory
         $project
             ->setName('_private_' . $user->getId())
             ->setPublic(false);
+
+        //make the user master over his private project
+        $this->permissionManager->addUser($project, $user, 'MASTER');
     }
 
     /**
