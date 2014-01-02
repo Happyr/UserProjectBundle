@@ -7,9 +7,10 @@ happyr.user.project:
       create: 'Skapa nytt'
       edit: Redigera
       remove: 'Ta bort'
+      leave: 'Lämna'
     index:
       heading: 'Alla projekt'
-      paragraph: 'Detta är din projektsida. Projekt är ett utmärkt verktyg om du vill samarbeta med en eller flera kollegor med att ta hand om jobbannonser.'
+      paragraph: 'Detta är din projektsida. Projekt är ett utmärkt verktyg om du vill samarbeta med en eller flera kollegor.'
       request: 'Gå med!'
       my_projects: 'Mina projekt'
       company_projects: 'Alla projekt i mitt företag'
@@ -18,7 +19,7 @@ happyr.user.project:
         name: Namn
         description: Beskivning
         members: Medlemmar
-        objectses: Annonser
+        objects: Objekt
     form:
       name: 'Projektets namn'
       description: 'Projektets beskrivning'
@@ -27,11 +28,11 @@ happyr.user.project:
         label: 'Välj användare'
         help: 'Välj en användare som du vill ska vara med i detta projekt'
       objects:
-        label: 'Välj jobbannons'
-        help: 'Välj en jobbannons som du vill ska vara med i detta projekt'
+        label: 'Välj objekt'
+        help: 'Välj ett objekt som du vill ska vara med i detta projekt'
     new:
       heading: 'Skapa nytt projekt'
-      paragraph: 'Om du vill samarbeta med en kollega så skapa ett projekt och bjud in hen och lägg till ett par jobbannonser.'
+      paragraph: 'Om du vill samarbeta med en kollega så skapa ett projekt och bjud in hen och lägg till ett par objekt.'
     edit:
       heading: Redigera
     show:
@@ -39,6 +40,10 @@ happyr.user.project:
         heading: Projektmedlemmar
         description: 'Dessa användare ingår i projektet. Klicka på krysset för att ta bort dem från projektet.'
         empty: 'Det finns inga användare i detta projekt ännu.'
+      objects:
+        heading: Objekt
+        description: 'Dessa objekt ingår i projektet. Klicka på krysset för att ta bort dem från projektet.'
+        empty: 'Det finns inga objekt i detta projekt ännu.'
       projects:
         heading: 'Användarens projekt'
         desciption: 'Här är en lista på dem projekt som anvädaren är medlem i.'
@@ -48,15 +53,16 @@ happyr.user.project:
         headline: 'Utöka projektet'
         users:
           headline: 'Lägg till användare'
-        objectses:
-          headline: 'Lägg till annonser'
+        objects:
+          headline: 'Lägg till objekt'
     delete:
       heading: 'Ta bort projekt'
-      paragraph: 'När du tar bort ett projekt så försvinner projektmedlemmarnas rättigheter till jobbannonserna. Inga annonser kommer att raderas. Observera att chefer alltid har rättigheter till alla jobbannonser.'
+      paragraph: 'När du tar bort ett projekt så försvinner projektmedlemmarnas rättigheter till objekten. Inga objekt kommer att raderas.'
       paragraph2: 'Klicka på knappen nedan för att ta bort <b>%%project%%</b>.'
   mask:
     VIEW: Åskådare
-    EDIT: 'Hantera ansökningar & annonser'
-    CREATE: 'Skapa nya jobbannonser'
-    DELETE: 'Skapa och avsluta jobbannonser'
+    EDIT: 'Hantera objekt'
+    CREATE: 'Skapa nya objekt'
+    DELETE: 'Skapa och ta bort objekt'
     MASTER: Administratör
+word.name: Namn

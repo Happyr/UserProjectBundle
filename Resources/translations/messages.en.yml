@@ -2,7 +2,7 @@ happyr.user.project:
   project:
     delete:
       heading: 'Remove project'
-      paragraph: 'Deleting a project also removes access for all users invited to the project. Job ads will not be deleted.'
+      paragraph: 'Deleting a project also removes access for all users invited to the project. Objects will not be deleted.'
       paragraph2: 'Use the button below to delete <b>%%project%%</b>'
     show:
       projects:
@@ -13,13 +13,17 @@ happyr.user.project:
       sidebar:
         users:
           headline: 'Add users'
-        objectes:
-          headline: 'Add adverts'
+        objects:
+          headline: 'Add objects'
         headline: 'Extend the project'
       users:
         heading: 'Project members'
         description: 'These users are members of the project. Click on the X to remove them.'
         empty: 'There are no users in this project yet.'
+      objects:
+        heading: 'Objects'
+        description: 'These objects are in the project. Click on the X to remove them.'
+        empty: 'There are no objects in this project yet.'
     edit:
       heading: Edit
     form:
@@ -30,13 +34,13 @@ happyr.user.project:
         label: 'Choose users'
         help: 'Choose users that you want to participate in this project'
       object:
-        label: 'Choose adverts'
-        help: 'Choose adverts that you want to be part of this project'
+        label: 'Choose objects'
+        help: 'Choose objects that you want to be part of this project'
     index:
       table:
         name: Name
         description: Description
-        objectes: Adverts
+        objects: Objects
         members: Members
       my_projects: 'My projects'
       heading: 'All projects'
@@ -49,14 +53,16 @@ happyr.user.project:
       projects: 'All projects'
       create: 'Create new'
       edit: Edit
+      leave: Leave
     base:
       title: Project
     new:
       heading: 'Create new project'
-      paragraph: 'If you want to collaborate with a colleague you could create a project and invite your colleagues and adverts.'
+      paragraph: 'If you want to collaborate with a colleague you could create a project and invite your colleagues.'
   mask:
     VIEW: Watcher
-    EDIT: 'Manage applications and adverts'
-    CREATE: 'Create new adverts'
-    DELETE: 'Create and close adverts'
+    EDIT: 'Manage objects'
+    CREATE: 'Create new object'
+    DELETE: 'Create and remove objects'
     MASTER: Administrator
+word.name: Name
