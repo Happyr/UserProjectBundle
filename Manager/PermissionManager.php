@@ -36,8 +36,9 @@ class PermissionManager extends BaseAclManager
      * DELETE - This user may remove an object
      * MASTER - This is the administrator of the project. He allowed to add users, delete users and change permissions
      *
+     * Ref: @link{http://symfony.com/doc/current/cookbook/security/acl_advanced.html}
      */
-    public static $validMasks = array('VIEW', 'EDIT', 'CREATE', 'DELETE', 'MASTER');
+    public static $validMasks = array('VIEW', 'EDIT', 'CREATE', 'DELETE', 'UNDELETE','OPERATOR', 'MASTER', 'OWNER');
 
     /**
      * @param AclProviderInterface $aclProvider

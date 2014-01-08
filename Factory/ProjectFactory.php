@@ -80,7 +80,7 @@ class ProjectFactory
         if (!$project->isPublic()) {
             //make the user master over his private project
             $user=$project->getUsers()->first();
-            $this->permissionManager->addUser($project, $user, 'MASTER');
+            $this->permissionManager->addUser($project, $user, 'OWNER');
         }
     }
 
