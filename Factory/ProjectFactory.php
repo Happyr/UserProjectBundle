@@ -67,6 +67,29 @@ class ProjectFactory
     }
 
     /**
+     * Clone a private project. Get a new project with owner of the private one.
+     *
+     * You have to name the new project and add objects to it.
+     *
+     * @param Project $project
+     *
+     * @return Project
+     */
+    public function clonePrivateProject(Project $project)
+    {
+        $owner=$project->getUsers()->first();
+
+        $project=$this->getNew();
+        $project->setName('Project - '.$owner->getId());
+
+        $this->create($project);
+        $this->permissionManager->addUser($project, $owner, 'OWNER');
+
+        return $project;
+    }
+
+
+    /**
      * Saves the projects
      *
      * @param Project $project
