@@ -56,25 +56,26 @@ php app/console init:acl
 ``` yaml
 # app/config/config.yml
 
-happy_r_user_project:
-  stuff...
+#happy_r_user_project:
+  #no config at this point
 ```
 
 Requirements
 ------------
 
 Your User object must implement HappyR\UserProjectBundle\Model\ProjectMemberInterface.
-Your other object that is in the project must implementHappyR\UserProjectBundle\Model\ProjectObjectInterface.
+Your other object that is in the project must implement HappyR\UserProjectBundle\Model\ProjectObjectInterface.
 
 http://symfony.com/doc/current/cookbook/doctrine/resolve_target_entity.html
 
 ``` php
 use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
+use HappyR\UserProjectBundle\Entity\Project;
 
 class MyObject implements ProjectObjectInterface
 {
     /**
-     * @var Project project
+     * @var \HappyR\UserProjectBundle\Entity\Project project
      *
      * @ORM\ManyToOne(targetEntity="HappyR\UserProjectBundle\Entity\Project", inversedBy="objects", cascade={"persist"})
      *

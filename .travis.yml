@@ -2,14 +2,19 @@ language: php
 
 php:
   - 5.3
+  - 5.4
+  - 5.5
+  - hhvm
 
 env:
-  - SYMFONY_VERSION="2.0.16"
-  - SYMFONY_VERSION="2.3.*"
-  - SYMFONY_VERSION="2.*"
-  - SYMFONY_VERSION="dev-master"
+  - SYMFONY_VERSION=2.1.*
+  - SYMFONY_VERSION=2.2.*
+  - SYMFONY_VERSION=2.3.*
+  - SYMFONY_VERSION=2.4.*
+  - SYMFONY_VERSION=dev-master
 
-install:
-  - composer require symfony/framework-bundle:${SYMFONY_VERSION}
+before_script:
+  - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update
+  - composer update --dev
 
 script: phpunit
