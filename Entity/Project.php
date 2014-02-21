@@ -2,7 +2,6 @@
 
 namespace HappyR\UserProjectBundle\Entity;
 
-use HappyR\UserProjectBundle\Manager\PermissionManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
 use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
@@ -176,7 +175,7 @@ class Project
     /**
      * Get users
      *
-     * @return ArrayCollection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getUsers()
     {
@@ -263,7 +262,7 @@ class Project
     /**
      * Get objects
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getObjects()
     {

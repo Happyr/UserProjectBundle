@@ -15,10 +15,10 @@ HappyR\UserProjectBundle\Entity\Project:
       joinTable:
         name: HappyRUserProject_Users
         joinColumns:
-          user_id:
+          project_id:
             referencedColumnName: id
         inverseJoinColumns:
-          object_id:
+          user_id:
             referencedColumnName: id
 
   id:
