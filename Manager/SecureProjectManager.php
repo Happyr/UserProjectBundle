@@ -116,6 +116,6 @@ class SecureProjectManager extends ProjectManager
     {
         $this->securityManager->verifyUserIsGranted('MASTER', $project);
 
-        return parent::changeUserPermissions($project, $user);
+        return parent::changeUserPermissions($project, $user, $mask);
     }
 }

@@ -2,14 +2,13 @@
 
 namespace HappyR\UserProjectBundle\Manager;
 
-use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 use HappyR\UserProjectBundle\Entity\Project;
 use HappyR\UserProjectBundle\Events\JoinRequestEvent;
+use HappyR\UserProjectBundle\Events\ProjectEvent;
 use HappyR\UserProjectBundle\Factory\ProjectFactory;
 use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
 use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
 use HappyR\UserProjectBundle\ProjectEvents;
-use HappyR\UserProjectBundle\Services\MailerService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
