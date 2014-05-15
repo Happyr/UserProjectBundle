@@ -114,11 +114,12 @@ class ProjectManager
      *
      * @param Project $project
      * @param ProjectMemberInterface &$user
+     * @param string $mask
      *
      * @return bool
      * @throws \InvalidArgumentException
      */
-    public function addUser(Project $project, ProjectMemberInterface &$user)
+    public function addUser(Project $project, ProjectMemberInterface &$user, $mask='VIEW')
     {
         //if you try to add a user that already is a part of the project
         if ($project->getUsers()->contains($user)) {
@@ -132,7 +133,7 @@ class ProjectManager
             throw new \InvalidArgumentException('You can not add a user to a private project');
         }
 
-        $this->permissionManager->addUser($project, $user);
+        $this->permissionManager->addUser($project, $user, $mask);
 
         $this->em->persist($project);
         $this->em->flush();
