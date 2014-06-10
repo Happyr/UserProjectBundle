@@ -37,7 +37,7 @@ abstract class BaseAclManager
      *
      * @param mixed &$object
      *
-     * @return AclInterface
+     * @return \Symfony\Component\Security\Acl\Domain\Acl
      */
     protected function getObjectAcl(&$object)
     {

@@ -6,6 +6,7 @@ use HappyR\UserProjectBundle\Entity\Project;
 use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
 use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 /**
  * Class PermissionManager
@@ -207,8 +208,14 @@ class PermissionManager extends BaseAclManager
      */
     protected function getBitMask($mask)
     {
-        $strMask = "MASK_" . $mask;
+        $builder=new MaskBuilder();
+        foreach (self::$validMasks as $m) {
+            $builder->add($m);
+            if ($m==$mask) {
+                break;
+            }
+        }
 
-        return constant("Symfony\Component\Security\Acl\Permission\MaskBuilder::$strMask");
+        return $builder->get();
     }
 }
