@@ -72,7 +72,7 @@ abstract class BaseAclManager
      * Thus function persists the object but does not flush
      *
      * @param mixed &$object
-     * @param User &$user
+     * @param UserInterface &$user
      * @param integer $permissionMask
      */
     protected function addUserAce(&$object, UserInterface &$user, $permissionMask)
@@ -96,7 +96,7 @@ abstract class BaseAclManager
      * Delete the access control entity for this user on this object
      *
      * @param mixed &$object
-     * @param User &$user
+     * @param UserInterface &$user
      */
     protected function removeUserAce(&$object, UserInterface &$user)
     {

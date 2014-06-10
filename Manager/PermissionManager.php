@@ -32,8 +32,8 @@ class PermissionManager extends BaseAclManager
      * An array with valid masks. From the least generous to most
      *
      * VIEW - View details about an object and the project
-     * EDIT - Change objectes etc
-     * CREATE - Create new objectes
+     * EDIT - Change objects etc
+     * CREATE - Create new objects
      * DELETE - This user may remove an object
      * MASTER - This is the administrator of the project. He allowed to add users, delete users and change permissions
      *
@@ -94,7 +94,7 @@ class PermissionManager extends BaseAclManager
     }
 
     /**
-     * Add a user to a project. This gives the user the proper permissions to all objectes in the project
+     * Add a user to a project. This gives the user the proper permissions to all objects in the project
      *
      * @param Project &$project
      * @param ProjectMemberInterface &$user
@@ -200,7 +200,7 @@ class PermissionManager extends BaseAclManager
     }
 
     /**
-     * Get the bitmask from a string mask
+     * Get the bit mask from a string mask
      *
      * @param string $mask
      *
