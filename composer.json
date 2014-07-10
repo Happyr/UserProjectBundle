@@ -3,12 +3,12 @@
     "type": "symfony-bundle",
     "description": "If you have multiple users that will share access to one or more objects.",
     "keywords": ["User management", "Project"],
-    "homepage": "http://developer.happyr.se/symfony2-bundles/happyr-user-project-bundle",
+    "homepage": "http://developer.happyr.com/symfony2-bundles/happyr-user-project-bundle",
     "license": "MIT",
     "authors": [
         {
             "name": "Tobias Nyholm",
-            "email": "tobias@happyrecruiting.se"
+            "email": "tobias@happyr.com"
         }
     ],
     "require": {
