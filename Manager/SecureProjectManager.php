@@ -1,13 +1,10 @@
 <?php
 
-
 namespace HappyR\UserProjectBundle\Manager;
 
-use HappyR\UserProjectBundle\Events\JoinRequestEvent;
 use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
 use HappyR\UserProjectBundle\Entity\Project;
 use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
-use HappyR\UserProjectBundle\ProjectEvents;
 
 /**
  * Class SecureProjectManager
@@ -48,15 +45,16 @@ class SecureProjectManager extends ProjectManager
      *
      * @param Project $project
      * @param ProjectMemberInterface &$user
+     * @param string $mask
      *
      * @return bool
      */
-    public function addUser(Project $project, ProjectMemberInterface &$user)
+    public function addUser(Project $project, ProjectMemberInterface &$user, $mask='VIEW')
     {
         $this->securityManager->verifyProjectIsPublic($project);
         $this->securityManager->verifyUserIsGranted('MASTER', $project);
 
-        return parent::addUser($project, $user);
+        return parent::addUser($project, $user, $mask);
     }
 
     /**
