@@ -3,11 +3,12 @@ parameters:
 services:
   happyr.user.project.permission_manager:
     class: Happyr\UserProjectBundle\Manager\PermissionManager
+    public: false
     arguments: [@security.acl.provider]
-
 
   happyr.user.project.project_manager:
     class: Happyr\UserProjectBundle\Manager\ProjectManager
+    public: true
     arguments:
       - @doctrine.orm.entity_manager
       - @happyr.user.project.permission_manager
@@ -21,12 +22,14 @@ services:
       - @happyr.user.project.permission_manager
       - @happyr.user.project.project_factory
       - @event_dispatcher
+    public: true
     calls:
         - [setSecurityManager, [@happyr.user.project.security_manager]]
 
   happyr.user.project.project_factory:
     class: Happyr\UserProjectBundle\Factory\ProjectFactory
     arguments: [@doctrine.orm.entity_manager, @happyr.user.project.permission_manager]
+    public: true
 
   happyr.user.project.project_service:
     class: Happyr\UserProjectBundle\Service\ProjectService
@@ -35,3 +38,4 @@ services:
   happyr.user.project.security_manager:
     class: Happyr\UserProjectBundle\Manager\SecurityManager
     arguments: [@security.authorization_checker]
+    public: false

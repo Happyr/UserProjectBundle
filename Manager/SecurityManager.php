@@ -29,12 +29,12 @@ class SecurityManager
     /**
      * Does the current user have $mask permissions on $object?
      *
-     * @param string $mask    can be VIEW, EDIT, DELETE, OPERATOR etc
-     * @param mixed  &$object any entity
+     * @param string $mask   can be VIEW, EDIT, DELETE, OPERATOR etc
+     * @param mixed  $object any entity
      *
      * @return bool
      */
-    public function userIsGranted($mask, &$object)
+    public function userIsGranted($mask, $object)
     {
         // check for access with ACL
         return $this->authChecker->isGranted($mask, $object);
@@ -43,14 +43,14 @@ class SecurityManager
     /**
      * Throws a AccessDeniedException if the user is not granted the $mask on the Object.
      *
-     * @param string $mask    can be VIEW, EDIT, DELETE, OPERATOR etc
-     * @param mixed  &$object any entity
+     * @param string $mask   can be VIEW, EDIT, DELETE, OPERATOR etc
+     * @param mixed  $object any entity
      *
      * @return bool
      *
      * @throws AccessDeniedHttpException
      */
-    public function verifyUserIsGranted($mask, &$object)
+    public function verifyUserIsGranted($mask, $object)
     {
         if ($this->userIsGranted($mask, $object)) {
             return true;
@@ -68,7 +68,7 @@ class SecurityManager
      *
      * @throws AccessDeniedHttpException
      */
-    public function verifyProjectIsPublic(Project &$project)
+    public function verifyProjectIsPublic(Project $project)
     {
         if ($project->isPublic()) {
             return true;

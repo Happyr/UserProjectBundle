@@ -32,11 +32,11 @@ abstract class BaseAclManager
     /**
      * Return a ACL for the object.
      *
-     * @param mixed &$object
+     * @param mixed $object
      *
      * @return \Symfony\Component\Security\Acl\Domain\Acl
      */
-    protected function getObjectAcl(&$object)
+    protected function getObjectAcl($object)
     {
         $objectIdentity = ObjectIdentity::fromDomainObject($object);
         try {
@@ -52,11 +52,11 @@ abstract class BaseAclManager
     /**
      * Get the user security identity.
      *
-     * @param UserInterface &$user
+     * @param UserInterface $user
      *
      * @return UserSecurityIdentity
      */
-    protected function getUserIdentity(UserInterface &$user)
+    protected function getUserIdentity(UserInterface $user)
     {
         $identity = UserSecurityIdentity::fromAccount($user);
 
@@ -68,11 +68,11 @@ abstract class BaseAclManager
      *
      * Thus function persists the object but does not flush
      *
-     * @param mixed         &$object
-     * @param UserInterface &$user
+     * @param mixed         $object
+     * @param UserInterface $user
      * @param int           $permissionMask
      */
-    protected function addUserAce(&$object, UserInterface &$user, $permissionMask)
+    protected function addUserAce($object, UserInterface $user, $permissionMask)
     {
         $securityIdentity = $this->getUserIdentity($user);
         $acl = $this->getObjectAcl($object);
@@ -92,10 +92,10 @@ abstract class BaseAclManager
     /**
      * Delete the access control entity for this user on this object.
      *
-     * @param mixed         &$object
-     * @param UserInterface &$user
+     * @param mixed         $object
+     * @param UserInterface $user
      */
-    protected function removeUserAce(&$object, UserInterface &$user)
+    protected function removeUserAce($object, UserInterface $user)
     {
         $securityIdentity = $this->getUserIdentity($user);
         $acl = $this->getObjectAcl($object);
@@ -112,12 +112,12 @@ abstract class BaseAclManager
     /**
      * Return the index of the Ace for the $securityIdentity in the $acl.
      *
-     * @param AclInterface         &$acl
-     * @param UserSecurityIdentity &$securityIdentity
+     * @param AclInterface         $acl
+     * @param UserSecurityIdentity $securityIdentity
      *
      * @return int|bool false if not found
      */
-    protected function getAceIndex(AclInterface &$acl, UserSecurityIdentity &$securityIdentity)
+    protected function getAceIndex(AclInterface $acl, UserSecurityIdentity $securityIdentity)
     {
         //gets the aces
         $aces = $acl->getObjectAces();

@@ -4,9 +4,11 @@ namespace Happyr\UserProjectBundle\Service;
 
 use Happyr\UserProjectBundle\Entity\Project;
 use Doctrine\Common\Persistence\ObjectManager;
+use Happyr\UserProjectBundle\Event\JoinRequestEvent;
 use Happyr\UserProjectBundle\Factory\ProjectFactory;
 use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 use Happyr\UserProjectBundle\Model\ProjectObjectInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class ProjectService.
@@ -26,23 +28,30 @@ class ProjectService
     protected $projectFactory;
 
     /**
-     * @param ObjectManager  $em
-     * @param ProjectFactory $pf
+     * @var EventDispatcherInterface dispatcher
      */
-    public function __construct(ObjectManager $em, ProjectFactory $pf)
+    protected $dispatcher;
+
+    /**
+     * @param ObjectManager            $em
+     * @param ProjectFactory           $pf
+     * @param EventDispatcherInterface $dispatcher
+     */
+    public function __construct(ObjectManager $em, ProjectFactory $pf, EventDispatcherInterface $dispatcher)
     {
         $this->em = $em;
         $this->projectFactory = $pf;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
      * Get the administrator for an object.
      *
-     * @param ProjectObjectInterface &$object
+     * @param ProjectObjectInterface $object
      *
-     * @return User|null
+     * @return ProjectMemberInterface|null
      */
-    public function getAdministratorForObject(ProjectObjectInterface &$object)
+    public function getAdministratorForObject(ProjectObjectInterface $object)
     {
         if (null == $project = $object->getProject()) {
             return;
@@ -54,11 +63,11 @@ class ProjectService
     /**
      * Get an administrator for a project.
      *
-     * @param Project &$project
+     * @param Project $project
      *
-     * @return User|null
+     * @return ProjectMemberInterface|null
      */
-    public function getAdministrator(Project &$project)
+    public function getAdministrator(Project $project)
     {
         $user = $project->getUsers()->filter(
             function ($user) use ($project) {
@@ -83,7 +92,7 @@ class ProjectService
      *
      * @return Project
      */
-    public function getUserPrivateProject(ProjectMemberInterface &$user)
+    public function getUserPrivateProject(ProjectMemberInterface $user)
     {
         $project = $this->em->getRepository('HappyrUserProjectBundle:Project')
             ->findPrivateProject($user);
@@ -95,5 +104,28 @@ class ProjectService
         }
 
         return $project;
+    }
+
+    /**
+     * Add a request to join the project.
+     *
+     * @param Project                $project
+     * @param ProjectMemberInterface $user
+     */
+    public function addJoinRequest(Project $project, ProjectMemberInterface $user)
+    {
+        /**
+         * Get admins.
+         */
+        $administrators = array();
+        foreach ($project->getUsers() as $u) {
+            if ($project->getPermission($u) == 'MASTER') {
+                $administrators[] = $u;
+            }
+        }
+
+        //fire event
+        $event = new JoinRequestEvent($project, $administrators, $user);
+        $this->dispatcher->dispatch(JoinRequestEvent::USER_JOIN_REQUEST, $event);
     }
 }

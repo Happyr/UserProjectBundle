@@ -2,7 +2,7 @@
 
 namespace Happyr\UserProjectBundle\Factory;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Happyr\UserProjectBundle\Entity\Project;
 use Happyr\UserProjectBundle\Manager\PermissionManager;
 use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
@@ -18,7 +18,7 @@ use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 class ProjectFactory
 {
     /**
-     * @var ObjectManager em
+     * @var EntityManagerInterface em
      */
     private $em;
 
@@ -28,10 +28,10 @@ class ProjectFactory
     private $permissionManager;
 
     /**
-     * @param ObjectManager     $em
-     * @param PermissionManager $pm
+     * @param EntityManagerInterface $em
+     * @param PermissionManager      $pm
      */
-    public function __construct(ObjectManager $em, PermissionManager $pm)
+    public function __construct(EntityManagerInterface $em, PermissionManager $pm)
     {
         $this->em = $em;
         $this->permissionManager = $pm;
@@ -50,10 +50,10 @@ class ProjectFactory
     /**
      * Mark a project as private.
      *
-     * @param Project                &$project
-     * @param ProjectMemberInterface &$user
+     * @param Project                $project
+     * @param ProjectMemberInterface $user
      */
-    public function makePrivate(Project &$project, ProjectMemberInterface &$user)
+    public function makePrivate(Project $project, ProjectMemberInterface $user)
     {
         $project
             ->setName('_private_'.$user->getId())
@@ -88,7 +88,7 @@ class ProjectFactory
      *
      * @param Project $project
      */
-    public function create(Project &$project)
+    public function create(Project $project)
     {
         $this->em->persist($project);
         $this->em->flush();
@@ -103,9 +103,9 @@ class ProjectFactory
     /**
      * Remove a project.
      *
-     * @param Project &$project
+     * @param Project $project
      */
-    public function remove(Project &$project)
+    public function remove(Project $project)
     {
         $users = $project->getUsers();
 

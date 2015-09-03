@@ -80,12 +80,12 @@ class Project
     /**
      * Set permissions for user.
      *
-     * @param ProjectMemberInterface &$user
+     * @param ProjectMemberInterface $user
      * @param string                 $mask
      *
      * @return $this
      */
-    public function setPermission(ProjectMemberInterface &$user, $mask)
+    public function setPermission(ProjectMemberInterface $user, $mask)
     {
         $this->permissions[$user->getId()] = $mask;
 
@@ -111,11 +111,11 @@ class Project
     /**
      * Revoke persmissions for a user.
      *
-     * @param ProjectMemberInterface &$user
+     * @param ProjectMemberInterface $user
      *
      * @return $this
      */
-    public function revokePermissions(ProjectMemberInterface &$user)
+    public function revokePermissions(ProjectMemberInterface $user)
     {
         if (isset($this->permissions[$user->getId()])) {
             unset($this->permissions[$user->getId()]);
@@ -137,11 +137,11 @@ class Project
     /**
      * Add user.
      *
-     * @param UserInterface &$user
+     * @param UserInterface $user
      *
      * @return Project
      */
-    public function addUser(UserInterface &$user)
+    public function addUser(UserInterface $user)
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
@@ -153,11 +153,11 @@ class Project
     /**
      * Remove an user.
      *
-     * @param UserInterface &$user
+     * @param UserInterface $user
      *
      * @return bool
      */
-    public function removeUser(UserInterface &$user)
+    public function removeUser(UserInterface $user)
     {
         return $this->users->removeElement($user);
     }
@@ -223,11 +223,11 @@ class Project
     /**
      * Add objects.
      *
-     * @param ProjectObjectInterface &$object
+     * @param ProjectObjectInterface $object
      *
      * @return $this
      */
-    public function addObject(ProjectObjectInterface &$object)
+    public function addObject(ProjectObjectInterface $object)
     {
         if (!$this->objects->contains($object)) {
             $this->objects->add($object);
@@ -240,11 +240,11 @@ class Project
     /**
      * Remove an object.
      *
-     * @param ProjectObjectInterface &$object
+     * @param ProjectObjectInterface $object
      *
      * @return bool
      */
-    public function removeObject(ProjectObjectInterface &$object)
+    public function removeObject(ProjectObjectInterface $object)
     {
         return $this->objects->removeElement($object);
     }

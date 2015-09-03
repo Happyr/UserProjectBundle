@@ -28,24 +28,17 @@ class SecureProjectManager extends ProjectManager
         $this->securityManager = $securityManager;
     }
 
-    public function addJoinRequest(Project &$project, ProjectMemberInterface &$user)
-    {
-        $this->securityManager->verifyProjectIsPublic($project);
-
-        parent::addJoinRequest($project, $user);
-    }
-
     /**
      * Add a user to a project.
      *
      *
      * @param Project                $project
-     * @param ProjectMemberInterface &$user
+     * @param ProjectMemberInterface $user
      * @param string                 $mask
      *
      * @return bool
      */
-    public function addUser(Project $project, ProjectMemberInterface &$user, $mask = 'VIEW')
+    public function addUser(Project $project, ProjectMemberInterface $user, $mask = 'VIEW')
     {
         $this->securityManager->verifyProjectIsPublic($project);
         $this->securityManager->verifyUserIsGranted('MASTER', $project);
@@ -63,24 +56,24 @@ class SecureProjectManager extends ProjectManager
      *
      * @return bool
      */
-    public function addObject(Project $project, ProjectObjectInterface &$object)
+    public function addObject(Project $project, ProjectObjectInterface $object)
     {
         $this->securityManager->verifyUserIsGranted('CREATE', $project);
 
-        return parent::addObject($project, $user);
+        return parent::addObject($project, $object);
     }
 
     /**
      * Remove user.
      *
      * @param Project                $project
-     * @param ProjectMemberInterface &$user
+     * @param ProjectMemberInterface $user
      */
-    public function removeUser(Project $project, ProjectMemberInterface &$user)
+    public function removeUser(Project $project, ProjectMemberInterface $user)
     {
         $this->securityManager->verifyUserIsGranted('MASTER', $project);
 
-        return parent::removeUser($project, $user);
+        parent::removeUser($project, $user);
     }
 
     /**
@@ -89,11 +82,11 @@ class SecureProjectManager extends ProjectManager
      * @param Project                $project
      * @param ProjectObjectInterface $object
      */
-    public function removeObject(Project $project, ProjectObjectInterface &$object)
+    public function removeObject(Project $project, ProjectObjectInterface $object)
     {
         $this->securityManager->verifyUserIsGranted('DELETE', $project);
 
-        return parent::removeObject($project, $user);
+        parent::removeObject($project, $user);
     }
 
     /**
@@ -107,6 +100,6 @@ class SecureProjectManager extends ProjectManager
     {
         $this->securityManager->verifyUserIsGranted('MASTER', $project);
 
-        return parent::changeUserPermissions($project, $user, $mask);
+        parent::changeUserPermissions($project, $user, $mask);
     }
 }

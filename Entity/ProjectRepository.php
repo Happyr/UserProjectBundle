@@ -15,11 +15,11 @@ class ProjectRepository extends EntityRepository
     /**
      * Get the private project for a user.
      *
-     * @param ProjectMemberInterface &$user
+     * @param ProjectMemberInterface $user
      *
      * @return Project|null
      */
-    public function findPrivateProject(ProjectMemberInterface &$user)
+    public function findPrivateProject(ProjectMemberInterface $user)
     {
         //TODO change this, we cant trust the name...
         return $this->findOneBy(
@@ -34,11 +34,11 @@ class ProjectRepository extends EntityRepository
      * Find the projects that this user is a member of.
      * This will not fetch private projects.
      *
-     * @param ProjectMemberInterface &$user
+     * @param ProjectMemberInterface $user
      *
      * @return array
      */
-    public function findUserProjects(ProjectMemberInterface &$user)
+    public function findUserProjects(ProjectMemberInterface $user)
     {
         $query = $this->getUserProjectsQb()
             ->setParameter('user_id', $user->getId())
@@ -69,11 +69,11 @@ class ProjectRepository extends EntityRepository
      * Find the projects that this user is not a member of.
      * This will not fetch private projects.
      *
-     * @param ProjectMemberInterface &$user
+     * @param ProjectMemberInterface $user
      *
      * @return array
      */
-    public function findNonUserProjects(ProjectMemberInterface &$user)
+    public function findNonUserProjects(ProjectMemberInterface $user)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 

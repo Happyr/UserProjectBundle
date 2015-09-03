@@ -3,12 +3,10 @@
 namespace Happyr\UserProjectBundle\Manager;
 
 use Happyr\UserProjectBundle\Entity\Project;
-use Happyr\UserProjectBundle\Events\JoinRequestEvent;
-use Happyr\UserProjectBundle\Events\ProjectEvent;
+use Happyr\UserProjectBundle\Event\ProjectEvent;
 use Happyr\UserProjectBundle\Factory\ProjectFactory;
 use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 use Happyr\UserProjectBundle\Model\ProjectObjectInterface;
-use Happyr\UserProjectBundle\ProjectEvents;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -60,34 +58,11 @@ class ProjectManager
     }
 
     /**
-     * Add a request to join the project.
-     *
-     * @param Project                &$project
-     * @param ProjectMemberInterface &$user
-     */
-    public function addJoinRequest(Project &$project, ProjectMemberInterface &$user)
-    {
-        /**
-         * Get admins.
-         */
-        $administrators = array();
-        foreach ($project->getUsers() as $u) {
-            if ($project->getPermission($u) == 'MASTER') {
-                $administrators[] = $u;
-            }
-        }
-
-        //fire event
-        $event = new JoinRequestEvent($project, $administrators, $user);
-        $this->dispatcher->dispatch(ProjectEvents::USER_JOIN_REQUEST, $event);
-    }
-
-    /**
      * Remove private projects are revoke permission from other projects.
      *
-     * @param ProjectMemberInterface &$user
+     * @param ProjectMemberInterface $user
      */
-    public function removeUserFromAllProjects(ProjectMemberInterface &$user)
+    public function removeUserFromAllProjects(ProjectMemberInterface $user)
     {
         $repo = $this->em->getRepository('HappyrUserProjectBundle:Project');
         $privateProject = $repo->findPrivateProject($user);
@@ -105,14 +80,14 @@ class ProjectManager
      *
      *
      * @param Project                $project
-     * @param ProjectMemberInterface &$user
+     * @param ProjectMemberInterface $user
      * @param string                 $mask
      *
      * @return bool
      *
      * @throws \InvalidArgumentException
      */
-    public function addUser(Project $project, ProjectMemberInterface &$user, $mask = 'VIEW')
+    public function addUser(Project $project, ProjectMemberInterface $user, $mask = 'VIEW')
     {
         //if you try to add a user that already is a part of the project
         if ($project->getUsers()->contains($user)) {
@@ -133,16 +108,16 @@ class ProjectManager
 
         //fire event
         $event = new ProjectEvent($project, $user);
-        $this->dispatcher->dispatch(ProjectEvents::USER_INVITED, $event);
+        $this->dispatcher->dispatch(ProjectEvent::USER_ADDED, $event);
     }
 
     /**
      * Remove user.
      *
      * @param Project                $project
-     * @param ProjectMemberInterface &$user
+     * @param ProjectMemberInterface $user
      */
-    public function removeUser(Project $project, ProjectMemberInterface &$user)
+    public function removeUser(Project $project, ProjectMemberInterface $user)
     {
         $this->permissionManager->removeUser($project, $user);
 
@@ -160,7 +135,7 @@ class ProjectManager
      *
      * @return bool
      */
-    public function addObject(Project $project, ProjectObjectInterface &$object)
+    public function addObject(Project $project, ProjectObjectInterface $object)
     {
         /*
          * Check if the object belongs to an other project
@@ -188,7 +163,7 @@ class ProjectManager
      * @param Project                $project
      * @param ProjectObjectInterface $object
      */
-    public function removeObject(Project $project, ProjectObjectInterface &$object)
+    public function removeObject(Project $project, ProjectObjectInterface $object)
     {
         $this->permissionManager->removeObject($project, $object);
 
