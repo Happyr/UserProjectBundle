@@ -1,19 +1,13 @@
 parameters:
-  happyr.user.project.permission_manager.class: Happyr\UserProjectBundle\Manager\PermissionManager
-  happyr.user.project.project_manager.class: Happyr\UserProjectBundle\Manager\ProjectManager
-  happyr.user.project.secure_project_manager.class: Happyr\UserProjectBundle\Manager\SecureProjectManager
-  happyr.user.project.project_factory.class: Happyr\UserProjectBundle\Factory\ProjectFactory
-  happyr.user.project.project_service.class: Happyr\UserProjectBundle\Services\ProjectService
-  happyr.user.project.security_manager.class: Happyr\UserProjectBundle\Manager\SecurityManager
 
 services:
   happyr.user.project.permission_manager:
-    class: %happyr.user.project.permission_manager.class%
+    class: Happyr\UserProjectBundle\Manager\PermissionManager
     arguments: [@security.acl.provider]
 
 
   happyr.user.project.project_manager:
-    class: %happyr.user.project.project_manager.class%
+    class: Happyr\UserProjectBundle\Manager\ProjectManager
     arguments:
       - @doctrine.orm.entity_manager
       - @happyr.user.project.permission_manager
@@ -21,7 +15,7 @@ services:
       - @event_dispatcher
 
   happyr.user.project.secure_project_manager:
-    class: %happyr.user.project.secure_project_manager.class%
+    class: Happyr\UserProjectBundle\Manager\SecureProjectManager
     arguments:
       - @doctrine.orm.entity_manager
       - @happyr.user.project.permission_manager
@@ -31,13 +25,13 @@ services:
         - [setSecurityManager, [@happyr.user.project.security_manager]]
 
   happyr.user.project.project_factory:
-    class: %happyr.user.project.project_factory.class%
+    class: Happyr\UserProjectBundle\Factory\ProjectFactory
     arguments: [@doctrine.orm.entity_manager, @happyr.user.project.permission_manager]
 
   happyr.user.project.project_service:
-    class: %happyr.user.project.project_service.class%
+    class: Happyr\UserProjectBundle\Service\ProjectService
     arguments: [@doctrine.orm.entity_manager, @happyr.user.project.project_factory]
 
   happyr.user.project.security_manager:
-    class: %happyr.user.project.security_manager.class%
+    class: Happyr\UserProjectBundle\Manager\SecurityManager
     arguments: [@security.authorization_checker]

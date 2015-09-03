@@ -1,6 +1,6 @@
 <?php
 
-namespace Happyr\UserProjectBundle\Services;
+namespace Happyr\UserProjectBundle\Service;
 
 use Happyr\UserProjectBundle\Entity\Project;
 use Doctrine\Common\Persistence\ObjectManager;
