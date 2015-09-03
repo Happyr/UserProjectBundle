@@ -1,6 +1,5 @@
 parameters:
   happyr.user.project.permission_manager.class: Happyr\UserProjectBundle\Manager\PermissionManager
-  happyr.user.project.mailer.class: Happyr\UserProjectBundle\Services\MailerService
   happyr.user.project.project_manager.class: Happyr\UserProjectBundle\Manager\ProjectManager
   happyr.user.project.secure_project_manager.class: Happyr\UserProjectBundle\Manager\SecureProjectManager
   happyr.user.project.project_factory.class: Happyr\UserProjectBundle\Factory\ProjectFactory
@@ -41,4 +40,4 @@ services:
 
   happyr.user.project.security_manager:
     class: %happyr.user.project.security_manager.class%
-    arguments: [@security.context]
+    arguments: [@security.authorization_checker]

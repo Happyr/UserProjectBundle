@@ -5,6 +5,7 @@ namespace Happyr\UserProjectBundle\Manager;
 
 use Happyr\UserProjectBundle\Entity\Project;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -16,19 +17,16 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class SecurityManager
 {
     /**
-     * @var SecurityContextInterface context
-     *
+     * @var AuthorizationCheckerInterface context
      */
-    protected $context;
+    private $authChecker;
 
     /**
-     * Default constructor
-     *
-     * @param SecurityContextInterface $securityContext
+     * @param AuthorizationCheckerInterface $authChecker
      */
-    public function __construct(SecurityContextInterface $securityContext)
+    public function __construct(AuthorizationCheckerInterface $authChecker)
     {
-        $this->context = $securityContext;
+        $this->authChecker = $authChecker;
     }
 
     /**
@@ -42,7 +40,7 @@ class SecurityManager
     public function userIsGranted($mask, &$object)
     {
         // check for access with ACL
-        return $this->context->isGranted($mask, $object);
+        return $this->authChecker->isGranted($mask, $object);
     }
 
     /**
