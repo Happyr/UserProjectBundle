@@ -1,9 +1,9 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Events;
+namespace Happyr\UserProjectBundle\Events;
 
-use HappyR\UserProjectBundle\Entity\Project;
-use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
+use Happyr\UserProjectBundle\Entity\Project;
+use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
  * Class JoinRequestEvent
@@ -65,7 +65,7 @@ class JoinRequestEvent extends BaseEvent
 
     /**
      *
-     * @param \HappyR\UserProjectBundle\Model\ProjectMemberInterface $user
+     * @param \Happyr\UserProjectBundle\Model\ProjectMemberInterface $user
      *
      * @return $this
      */
@@ -78,7 +78,7 @@ class JoinRequestEvent extends BaseEvent
 
     /**
      *
-     * @return \HappyR\UserProjectBundle\Model\ProjectMemberInterface
+     * @return \Happyr\UserProjectBundle\Model\ProjectMemberInterface
      */
     public function getUser()
     {

@@ -1,14 +1,14 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Manager;
+namespace Happyr\UserProjectBundle\Manager;
 
-use HappyR\UserProjectBundle\Entity\Project;
-use HappyR\UserProjectBundle\Events\JoinRequestEvent;
-use HappyR\UserProjectBundle\Events\ProjectEvent;
-use HappyR\UserProjectBundle\Factory\ProjectFactory;
-use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
-use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
-use HappyR\UserProjectBundle\ProjectEvents;
+use Happyr\UserProjectBundle\Entity\Project;
+use Happyr\UserProjectBundle\Events\JoinRequestEvent;
+use Happyr\UserProjectBundle\Events\ProjectEvent;
+use Happyr\UserProjectBundle\Factory\ProjectFactory;
+use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
+use Happyr\UserProjectBundle\Model\ProjectObjectInterface;
+use Happyr\UserProjectBundle\ProjectEvents;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -97,7 +97,7 @@ class ProjectManager
      */
     public function removeUserFromAllProjects(ProjectMemberInterface &$user)
     {
-        $repo = $this->em->getRepository('HappyRUserProjectBundle:Project');
+        $repo = $this->em->getRepository('HappyrUserProjectBundle:Project');
         $privateProject = $repo->findPrivateProject($user);
 
         $this->projectFactory->remove($privateProject);

@@ -1,10 +1,10 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Manager;
+namespace Happyr\UserProjectBundle\Manager;
 
-use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
-use HappyR\UserProjectBundle\Entity\Project;
-use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
+use Happyr\UserProjectBundle\Model\ProjectObjectInterface;
+use Happyr\UserProjectBundle\Entity\Project;
+use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
  * Class SecureProjectManager
@@ -24,7 +24,7 @@ class SecureProjectManager extends ProjectManager
 
     /**
      *
-     * @param \HappyR\UserProjectBundle\Manager\SecurityManager $securityManager
+     * @param \Happyr\UserProjectBundle\Manager\SecurityManager $securityManager
      *
      */
     public function setSecurityManager(SecurityManager $securityManager)

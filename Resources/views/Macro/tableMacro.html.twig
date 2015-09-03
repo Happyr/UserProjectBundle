@@ -1,6 +1,6 @@
 {% macro projectUserPermission(project, user) %}
     {% spaceless %}
-        {% set options=static('HappyR\\UserProjectBundle\\Manager\\PermissionManager', 'validMasks') %}
+        {% set options=static('Happyr\\UserProjectBundle\\Manager\\PermissionManager', 'validMasks') %}
         <select onchange="
                 $.post('{{ path('happyr_user_project_project_edit', {id:project.id, user_id:user.id}) }}', {
                 mask: $(this).val()

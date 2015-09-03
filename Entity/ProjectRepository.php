@@ -1,9 +1,9 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Entity;
+namespace Happyr\UserProjectBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
+use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
  * Class ProjectRepository
@@ -61,7 +61,7 @@ class ProjectRepository extends EntityRepository
 
         return $qb
             ->select('e')
-            ->from('HappyRUserProjectBundle:Project', 'e')
+            ->from('HappyrUserProjectBundle:Project', 'e')
             ->join('e.users', 'u')
             ->where('u.id = :user_id')
             ->andWhere('e.public = 1');
@@ -81,7 +81,7 @@ class ProjectRepository extends EntityRepository
 
         $query = $qb
             ->select('p')
-            ->from('HappyRUserProjectBundle:Project', 'p')
+            ->from('HappyrUserProjectBundle:Project', 'p')
             ->andWhere('p.public = 1')
             ->andWhere($qb->expr()->notIn('p.id', $this->getUserProjectsQb()->getDQL()))
             ->setParameter('user_id', $user->getId())

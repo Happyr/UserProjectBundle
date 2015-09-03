@@ -1,17 +1,17 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Controller;
+namespace Happyr\UserProjectBundle\Controller;
 
-use HappyR\UserProjectBundle\Form\ObjectType;
-use HappyR\UserProjectBundle\Form\UserType;
+use Happyr\UserProjectBundle\Form\ObjectType;
+use Happyr\UserProjectBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
-use HappyR\UserProjectBundle\Entity\Project;
-use HappyR\UserProjectBundle\Form\ProjectType;
+use Happyr\UserProjectBundle\Entity\Project;
+use Happyr\UserProjectBundle\Form\ProjectType;
 
 /**
  * Class ProjectController
@@ -32,7 +32,7 @@ class ProjectController extends Controller
     public function indexAction()
     {
         $user = $this->getUser();
-        $repo=$this->getDoctrine()->getRepository('HappyRUserProjectBundle:Project');
+        $repo=$this->getDoctrine()->getRepository('HappyrUserProjectBundle:Project');
         $myProjects = $repo->findUserProjects($user);
 
         $projects = $repo->findNonUserProjects($user);

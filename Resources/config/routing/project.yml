@@ -1,44 +1,44 @@
 happyr_user_project_project_index:
   path:      /
-  defaults:  { _controller: HappyRUserProjectBundle:Project:index }
+  defaults:  { _controller: HappyrUserProjectBundle:Project:index }
   methods:  [GET]
 
 happyr_user_project_project_show:
   path:      /{id}
-  defaults:  { _controller: HappyRUserProjectBundle:Project:show }
+  defaults:  { _controller: HappyrUserProjectBundle:Project:show }
   methods:  [GET]
   requirements:
     id:  \d+
 
 happyr_user_project_project_leave:
   path:      /{id}/leave
-  defaults:  { _controller: HappyRUserProjectBundle:Project:leave }
+  defaults:  { _controller: HappyrUserProjectBundle:Project:leave }
   methods:  [GET]
   requirements:
     id:  \d+
 
 happyr_user_project_project_create:
   path:      /new
-  defaults:  { _controller: HappyRUserProjectBundle:Project:new }
+  defaults:  { _controller: HappyrUserProjectBundle:Project:new }
   methods:  [GET, POST]
 
 happyr_user_project_project_edit:
   path:      /{id}/edit
-  defaults:  { _controller: HappyRUserProjectBundle:Project:edit }
+  defaults:  { _controller: HappyrUserProjectBundle:Project:edit }
   methods:  [GET, POST]
   requirements:
     id:  \d+
 
 happyr_user_project_project_delete:
   path:      /{id}/delete
-  defaults:  { _controller: HappyRUserProjectBundle:Project:delete }
+  defaults:  { _controller: HappyrUserProjectBundle:Project:delete }
   methods:  [GET, POST]
   requirements:
     id:  \d+
 
 happyr_user_project_project_join_request:
   path:      /{id}/join-request
-  defaults:  { _controller: HappyRUserProjectBundle:Project:joinRequest }
+  defaults:  { _controller: HappyrUserProjectBundle:Project:joinRequest }
   methods:  [GET]
   requirements:
     id:  \d+

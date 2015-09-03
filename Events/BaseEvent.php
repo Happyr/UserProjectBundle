@@ -1,8 +1,8 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Events;
+namespace Happyr\UserProjectBundle\Events;
 
-use HappyR\UserProjectBundle\Entity\Project;
+use Happyr\UserProjectBundle\Entity\Project;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -31,7 +31,7 @@ class BaseEvent extends Event
 
     /**
      *
-     * @param \HappyR\UserProjectBundle\Entity\Project $project
+     * @param \Happyr\UserProjectBundle\Entity\Project $project
      *
      * @return $this
      */
@@ -44,7 +44,7 @@ class BaseEvent extends Event
 
     /**
      *
-     * @return \HappyR\UserProjectBundle\Entity\Project
+     * @return \Happyr\UserProjectBundle\Entity\Project
      */
     public function getProject()
     {

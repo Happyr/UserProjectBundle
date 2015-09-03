@@ -1,9 +1,9 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Events;
+namespace Happyr\UserProjectBundle\Events;
 
-use HappyR\UserProjectBundle\Entity\Project;
-use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
+use Happyr\UserProjectBundle\Entity\Project;
+use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
  * Class ProjectEvent
@@ -32,7 +32,7 @@ class ProjectEvent extends BaseEvent
 
     /**
      *
-     * @param \HappyR\ProjectMemberInterface $user
+     * @param \Happyr\ProjectMemberInterface $user
      *
      * @return $this
      */
@@ -45,7 +45,7 @@ class ProjectEvent extends BaseEvent
 
     /**
      *
-     * @return \HappyR\ProjectMemberInterface
+     * @return \Happyr\ProjectMemberInterface
      */
     public function getUser()
     {

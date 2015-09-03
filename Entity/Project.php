@@ -1,10 +1,10 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Entity;
+namespace Happyr\UserProjectBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
-use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
+use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
+use Happyr\UserProjectBundle\Model\ProjectObjectInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 

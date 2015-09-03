@@ -1,4 +1,4 @@
-# HappyR User Project Bundle
+# Happyr User Project Bundle
 
 If you have multiple users that will share access to one or more objects.
 
@@ -37,7 +37,7 @@ $ php composer.phar update
 // in AppKernel::registerBundles()
 $bundles = array(
     // ...
-    new HappyR\UserProjectBundle\HappyRUserProjectBundle(),
+    new Happyr\UserProjectBundle\HappyrUserProjectBundle(),
     // ...
 );
 ```
@@ -63,21 +63,21 @@ php app/console init:acl
 Requirements
 ------------
 
-Your User object must implement HappyR\UserProjectBundle\Model\ProjectMemberInterface.
-Your other object that is in the project must implement HappyR\UserProjectBundle\Model\ProjectObjectInterface.
+Your User object must implement Happyr\UserProjectBundle\Model\ProjectMemberInterface.
+Your other object that is in the project must implement Happyr\UserProjectBundle\Model\ProjectObjectInterface.
 
 http://symfony.com/doc/current/cookbook/doctrine/resolve_target_entity.html
 
 ``` php
-use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
-use HappyR\UserProjectBundle\Entity\Project;
+use Happyr\UserProjectBundle\Model\ProjectObjectInterface;
+use Happyr\UserProjectBundle\Entity\Project;
 
 class MyObject implements ProjectObjectInterface
 {
     /**
-     * @var \HappyR\UserProjectBundle\Entity\Project project
+     * @var \Happyr\UserProjectBundle\Entity\Project project
      *
-     * @ORM\ManyToOne(targetEntity="HappyR\UserProjectBundle\Entity\Project", inversedBy="objects", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Happyr\UserProjectBundle\Entity\Project", inversedBy="objects", cascade={"persist"})
      *
      */
     protected $project;
@@ -109,6 +109,6 @@ class MyObject implements ProjectObjectInterface
 ```yml
 # app/config/routing.yml
 happyr_user_project:
-    resource: "@HappyRUserProjectBundle/Resources/config/routing.yml"
+    resource: "@HappyrUserProjectBundle/Resources/config/routing.yml"
     prefix:   /
 ```

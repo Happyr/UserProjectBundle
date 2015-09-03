@@ -1,9 +1,9 @@
 <?php
 
 
-namespace HappyR\UserProjectBundle\Manager;
+namespace Happyr\UserProjectBundle\Manager;
 
-use HappyR\UserProjectBundle\Entity\Project;
+use Happyr\UserProjectBundle\Entity\Project;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 

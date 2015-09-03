@@ -24,9 +24,9 @@
     },
     "autoload": {
         "psr-0": {
-            "HappyR\\UserProjectBundle": ""
+            "Happyr\\UserProjectBundle": ""
         }
     },
-    "target-dir": "HappyR/UserProjectBundle"
+    "target-dir": "Happyr/UserProjectBundle"
 
 }

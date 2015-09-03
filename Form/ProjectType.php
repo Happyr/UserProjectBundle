@@ -1,6 +1,6 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Form;
+namespace Happyr\UserProjectBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -39,7 +39,7 @@ class ProjectType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'HappyR\UserProjectBundle\Entity\Project',
+                'data_class' => 'Happyr\UserProjectBundle\Entity\Project',
             )
         );
     }

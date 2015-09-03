@@ -1,11 +1,11 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Factory;
+namespace Happyr\UserProjectBundle\Factory;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use HappyR\UserProjectBundle\Entity\Project;
-use HappyR\UserProjectBundle\Manager\PermissionManager;
-use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
+use Happyr\UserProjectBundle\Entity\Project;
+use Happyr\UserProjectBundle\Manager\PermissionManager;
+use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
  * Class ProjectFactory

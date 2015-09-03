@@ -1,4 +1,4 @@
-{% extends 'HappyRUserProjectBundle:Project:base.html.twig' %}
+{% extends 'HappyrUserProjectBundle:Project:base.html.twig' %}
 
 {% block content -%}
     <h2>{% trans %}happyr.user.project.project.index.heading{% endtrans %}</h2>
@@ -7,12 +7,12 @@
     <section>
         <h3>{% trans %}happyr.user.project.project.index.my_projects{% endtrans %}</h3>
 
-        {% include "HappyRUserProjectBundle:Project:table.html.twig" with {projects:myProjects, requestToJoin:false} %}
+        {% include "HappyrUserProjectBundle:Project:table.html.twig" with {projects:myProjects, requestToJoin:false} %}
     </section>
     <section>
         <h3>{% trans %}happyr.user.project.project.index.company_projects{% endtrans %}</h3>
 
-        {% include "HappyRUserProjectBundle:Project:table.html.twig" with {requestToJoin:true} %}
+        {% include "HappyrUserProjectBundle:Project:table.html.twig" with {requestToJoin:true} %}
     </section>
 
 {% endblock %}

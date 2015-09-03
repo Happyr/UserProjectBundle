@@ -1,13 +1,13 @@
 <?php
 
 
-namespace HappyR\UserProjectBundle\Services;
+namespace Happyr\UserProjectBundle\Services;
 
-use HappyR\UserProjectBundle\Entity\Project;
+use Happyr\UserProjectBundle\Entity\Project;
 use Doctrine\Common\Persistence\ObjectManager;
-use HappyR\UserProjectBundle\Factory\ProjectFactory;
-use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
-use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
+use Happyr\UserProjectBundle\Factory\ProjectFactory;
+use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
+use Happyr\UserProjectBundle\Model\ProjectObjectInterface;
 
 /**
  * Class ProjectService
@@ -24,7 +24,7 @@ class ProjectService
     protected $em;
 
     /**
-     * @var \HappyR\UserProjectBundle\Factory\ProjectFactory projectFactory
+     * @var \Happyr\UserProjectBundle\Factory\ProjectFactory projectFactory
      *
      */
     protected $projectFactory;
@@ -90,7 +90,7 @@ class ProjectService
      */
     public function getUserPrivateProject(ProjectMemberInterface &$user)
     {
-        $project=$this->em->getRepository('HappyRUserProjectBundle:Project')
+        $project=$this->em->getRepository('HappyrUserProjectBundle:Project')
             ->findPrivateProject($user);
 
         if (!$project) {

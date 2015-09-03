@@ -1,10 +1,10 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Manager;
+namespace Happyr\UserProjectBundle\Manager;
 
-use HappyR\UserProjectBundle\Entity\Project;
-use HappyR\UserProjectBundle\Model\ProjectMemberInterface;
-use HappyR\UserProjectBundle\Model\ProjectObjectInterface;
+use Happyr\UserProjectBundle\Entity\Project;
+use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
+use Happyr\UserProjectBundle\Model\ProjectObjectInterface;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 

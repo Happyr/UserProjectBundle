@@ -1,19 +1,19 @@
-HappyR\UserProjectBundle\Entity\Project:
+Happyr\UserProjectBundle\Entity\Project:
   type: entity
-  table: HappyRUserProject
-  repositoryClass: HappyR\UserProjectBundle\Entity\ProjectRepository
+  table: HappyrUserProject
+  repositoryClass: Happyr\UserProjectBundle\Entity\ProjectRepository
   lifecycleCallbacks:
     preUpdate: [updateUpdatedAt]
   oneToMany:
     objects:
-      targetEntity: HappyR\UserProjectBundle\Model\ProjectObjectInterface
+      targetEntity: Happyr\UserProjectBundle\Model\ProjectObjectInterface
       mappedBy: project
       cascade: [persist]
   manyToMany:
     users:
-      targetEntity: HappyR\UserProjectBundle\Model\ProjectMemberInterface
+      targetEntity: Happyr\UserProjectBundle\Model\ProjectMemberInterface
       joinTable:
-        name: HappyRUserProject_Users
+        name: HappyrUserProject_Users
         joinColumns:
           project_id:
             referencedColumnName: id

@@ -1,6 +1,6 @@
 <?php
 
-namespace HappyR\UserProjectBundle;
+namespace Happyr\UserProjectBundle;
 
 /**
  * Class ProjectEvents
@@ -14,7 +14,7 @@ final class ProjectEvents
      * This event is fired when someone is invited to a project
      *
      * The event listener receives an
-     * HappyR\UserProjectBundle\Events\Project instance.
+     * Happyr\UserProjectBundle\Events\Project instance.
      *
      * @var string
      */
@@ -24,7 +24,7 @@ final class ProjectEvents
      * This event is fired when someone wants to join a project
      *
      * The event listener receives an
-     * HappyR\UserProjectBundle\Events\JoinRequestEvent instance.
+     * Happyr\UserProjectBundle\Events\JoinRequestEvent instance.
      *
      * @var string
      */

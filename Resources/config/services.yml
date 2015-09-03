@@ -1,11 +1,11 @@
 parameters:
-  happyr.user.project.permission_manager.class: HappyR\UserProjectBundle\Manager\PermissionManager
-  happyr.user.project.mailer.class: HappyR\UserProjectBundle\Services\MailerService
-  happyr.user.project.project_manager.class: HappyR\UserProjectBundle\Manager\ProjectManager
-  happyr.user.project.secure_project_manager.class: HappyR\UserProjectBundle\Manager\SecureProjectManager
-  happyr.user.project.project_factory.class: HappyR\UserProjectBundle\Factory\ProjectFactory
-  happyr.user.project.project_service.class: HappyR\UserProjectBundle\Services\ProjectService
-  happyr.user.project.security_manager.class: HappyR\UserProjectBundle\Manager\SecurityManager
+  happyr.user.project.permission_manager.class: Happyr\UserProjectBundle\Manager\PermissionManager
+  happyr.user.project.mailer.class: Happyr\UserProjectBundle\Services\MailerService
+  happyr.user.project.project_manager.class: Happyr\UserProjectBundle\Manager\ProjectManager
+  happyr.user.project.secure_project_manager.class: Happyr\UserProjectBundle\Manager\SecureProjectManager
+  happyr.user.project.project_factory.class: Happyr\UserProjectBundle\Factory\ProjectFactory
+  happyr.user.project.project_service.class: Happyr\UserProjectBundle\Services\ProjectService
+  happyr.user.project.security_manager.class: Happyr\UserProjectBundle\Manager\SecurityManager
 
 services:
   happyr.user.project.permission_manager:

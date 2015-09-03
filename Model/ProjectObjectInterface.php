@@ -1,10 +1,10 @@
 <?php
 
 
-namespace HappyR\UserProjectBundle\Model;
+namespace Happyr\UserProjectBundle\Model;
 
-use HappyR\IdentifierInterface;
-use HappyR\UserProjectBundle\Entity\Project;
+use Happyr\IdentifierInterface;
+use Happyr\UserProjectBundle\Entity\Project;
 
 /**
  * Class ProjectObjectInterface

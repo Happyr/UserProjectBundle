@@ -1,6 +1,6 @@
 <?php
 
-namespace HappyR\UserProjectBundle\Manager;
+namespace Happyr\UserProjectBundle\Manager;
 
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;

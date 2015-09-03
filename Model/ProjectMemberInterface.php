@@ -1,9 +1,9 @@
 <?php
 
 
-namespace HappyR\UserProjectBundle\Model;
+namespace Happyr\UserProjectBundle\Model;
 
-use HappyR\IdentifierInterface;
+use Happyr\IdentifierInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
