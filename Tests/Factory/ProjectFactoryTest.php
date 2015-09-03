@@ -25,7 +25,7 @@ class ProjectFactoryTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('addUser')->with($user)->andReturn($project);
 
         $factory = new ProjectFactory(
-            m::mock('Doctrine\Common\Persistence\ObjectManager'),
+            m::mock('Doctrine\ORM\EntityManagerInterface'),
             m::mock('Happyr\UserProjectBundle\Manager\PermissionManager')
         );
 
