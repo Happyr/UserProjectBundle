@@ -56,7 +56,7 @@ php app/console init:acl
 ``` yaml
 # app/config/config.yml
 
-#happy_r_user_project:
+#happyr_user_project:
   #no config at this point
 ```
 

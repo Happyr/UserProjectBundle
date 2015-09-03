@@ -9,20 +9,17 @@ use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 /**
- * Class PermissionManager
+ * Class PermissionManager.
  *
  * @author Tobias Nyholm
  *
  * This class could be considered a part of the Project Manager. This is handles permissions within the project and
  * adding/removing users and objectes. If you want to add a User to the Project, use the ProjectManager
- *
  */
 class PermissionManager extends BaseAclManager
 {
     /**
      * @var AclProviderInterface aclProvider
-     *
-     *
      */
     protected $aclProvider;
 
@@ -50,12 +47,13 @@ class PermissionManager extends BaseAclManager
     }
 
     /**
-     * Add an object to a project. This updates the permissions for all users in the project
+     * Add an object to a project. This updates the permissions for all users in the project.
      *
-     * @param Project &$project
+     * @param Project                &$project
      * @param ProjectObjectInterface &$object
      *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function addObject(Project &$project, ProjectObjectInterface &$object)
@@ -72,11 +70,11 @@ class PermissionManager extends BaseAclManager
     }
 
     /**
-     * Remove an object from the project
+     * Remove an object from the project.
      *
      * Remember to persist the $object as well. Doctrine can't find the object since we cut the relation.
      *
-     * @param Project &$project
+     * @param Project                &$project
      * @param ProjectObjectInterface &$object
      *
      * @return $this
@@ -94,13 +92,14 @@ class PermissionManager extends BaseAclManager
     }
 
     /**
-     * Add a user to a project. This gives the user the proper permissions to all objects in the project
+     * Add a user to a project. This gives the user the proper permissions to all objects in the project.
      *
-     * @param Project &$project
+     * @param Project                &$project
      * @param ProjectMemberInterface &$user
-     * @param string $mask
+     * @param string                 $mask
      *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function addUser(Project &$project, ProjectMemberInterface &$user, $mask = 'VIEW')
@@ -111,9 +110,9 @@ class PermissionManager extends BaseAclManager
     }
 
     /**
-     * Remove a user from the project
+     * Remove a user from the project.
      *
-     * @param Project &$project
+     * @param Project                &$project
      * @param ProjectMemberInterface &$user
      *
      * @return $this
@@ -129,9 +128,9 @@ class PermissionManager extends BaseAclManager
      * Change a users privileges in a project.
      *
      *
-     * @param Project &$project
+     * @param Project                &$project
      * @param ProjectMemberInterface &$user
-     * @param string $mask
+     * @param string                 $mask
      *
      * @return $this;
      *
@@ -146,7 +145,7 @@ class PermissionManager extends BaseAclManager
         if (!in_array($mask, $validMasks)) {
             throw new \ErrorException(
                 sprintf(
-                    "The string '%s' is not a valid mask. Valid masks are (" . implode(',', $validMasks) . ").",
+                    "The string '%s' is not a valid mask. Valid masks are (".implode(',', $validMasks).').',
                     $mask
                 )
             );
@@ -176,9 +175,9 @@ class PermissionManager extends BaseAclManager
     }
 
     /**
-     * Remove permissions for the user
+     * Remove permissions for the user.
      *
-     * @param Project &$project
+     * @param Project                &$project
      * @param ProjectMemberInterface &$user
      *
      * @return $this
@@ -200,18 +199,18 @@ class PermissionManager extends BaseAclManager
     }
 
     /**
-     * Get the bit mask from a string mask
+     * Get the bit mask from a string mask.
      *
      * @param string $mask
      *
-     * @return integer
+     * @return int
      */
     protected function getBitMask($mask)
     {
-        $builder=new MaskBuilder();
+        $builder = new MaskBuilder();
         foreach (self::$validMasks as $m) {
             $builder->add($m);
-            if ($m==$mask) {
+            if ($m == $mask) {
                 break;
             }
         }

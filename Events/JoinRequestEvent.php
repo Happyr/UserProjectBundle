@@ -6,10 +6,9 @@ use Happyr\UserProjectBundle\Entity\Project;
 use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
- * Class JoinRequestEvent
+ * Class JoinRequestEvent.
  *
  * @author Tobias Nyholm
- *
  */
 class JoinRequestEvent extends BaseEvent
 {
@@ -24,13 +23,12 @@ class JoinRequestEvent extends BaseEvent
      * @var ProjectMemberInterface user
      *
      * This is the user that wants to join
-     *
      */
     protected $user;
 
     /**
-     * @param Project &$project
-     * @param array &$admins
+     * @param Project                &$project
+     * @param array                  &$admins
      * @param ProjectMemberInterface &$user
      */
     public function __construct(Project &$project, array &$admins, ProjectMemberInterface &$user)
@@ -42,7 +40,6 @@ class JoinRequestEvent extends BaseEvent
     }
 
     /**
-     *
      * @param array $user
      *
      * @return $this
@@ -55,7 +52,6 @@ class JoinRequestEvent extends BaseEvent
     }
 
     /**
-     *
      * @return array
      */
     public function getAdministrators()
@@ -64,7 +60,6 @@ class JoinRequestEvent extends BaseEvent
     }
 
     /**
-     *
      * @param \Happyr\UserProjectBundle\Model\ProjectMemberInterface $user
      *
      * @return $this
@@ -77,13 +72,10 @@ class JoinRequestEvent extends BaseEvent
     }
 
     /**
-     *
      * @return \Happyr\UserProjectBundle\Model\ProjectMemberInterface
      */
     public function getUser()
     {
         return $this->user;
     }
-
-
 }

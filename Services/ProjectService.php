@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Happyr\UserProjectBundle\Services;
 
 use Happyr\UserProjectBundle\Entity\Project;
@@ -10,28 +9,24 @@ use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 use Happyr\UserProjectBundle\Model\ProjectObjectInterface;
 
 /**
- * Class ProjectService
+ * Class ProjectService.
  *
  * @author Tobias Nyholm
- *
  */
 class ProjectService
 {
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager em
-     *
      */
     protected $em;
 
     /**
      * @var \Happyr\UserProjectBundle\Factory\ProjectFactory projectFactory
-     *
      */
     protected $projectFactory;
 
-
     /**
-     * @param ObjectManager $em
+     * @param ObjectManager  $em
      * @param ProjectFactory $pf
      */
     public function __construct(ObjectManager $em, ProjectFactory $pf)
@@ -41,7 +36,7 @@ class ProjectService
     }
 
     /**
-     * Get the administrator for an object
+     * Get the administrator for an object.
      *
      * @param ProjectObjectInterface &$object
      *
@@ -50,14 +45,14 @@ class ProjectService
     public function getAdministratorForObject(ProjectObjectInterface &$object)
     {
         if (null == $project = $object->getProject()) {
-            return null;
+            return;
         }
 
         return $this->getAdministrator($project);
     }
 
     /**
-     * Get an administrator for a project
+     * Get an administrator for a project.
      *
      * @param Project &$project
      *
@@ -77,7 +72,7 @@ class ProjectService
             return $user;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -90,7 +85,7 @@ class ProjectService
      */
     public function getUserPrivateProject(ProjectMemberInterface &$user)
     {
-        $project=$this->em->getRepository('HappyrUserProjectBundle:Project')
+        $project = $this->em->getRepository('HappyrUserProjectBundle:Project')
             ->findPrivateProject($user);
 
         if (!$project) {

@@ -6,20 +6,16 @@ use Happyr\UserProjectBundle\Entity\Project;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class BaseEvent
+ * Class BaseEvent.
  *
  * @author Tobias Nyholm
- *
  */
 class BaseEvent extends Event
 {
     /**
      * @var Project project
-     *
-     *
      */
     protected $project;
-
 
     /**
      * @param Project &$project
@@ -30,7 +26,6 @@ class BaseEvent extends Event
     }
 
     /**
-     *
      * @param \Happyr\UserProjectBundle\Entity\Project $project
      *
      * @return $this
@@ -43,7 +38,6 @@ class BaseEvent extends Event
     }
 
     /**
-     *
      * @return \Happyr\UserProjectBundle\Entity\Project
      */
     public function getProject()

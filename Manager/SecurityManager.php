@@ -1,18 +1,15 @@
 <?php
 
-
 namespace Happyr\UserProjectBundle\Manager;
 
 use Happyr\UserProjectBundle\Entity\Project;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
- * Class SecurityManager
+ * Class SecurityManager.
  *
  * @author Tobias Nyholm
- *
  */
 class SecurityManager
 {
@@ -32,10 +29,10 @@ class SecurityManager
     /**
      * Does the current user have $mask permissions on $object?
      *
-     * @param string $mask can be VIEW, EDIT, DELETE, OPERATOR etc
-     * @param mixed &$object any entity
+     * @param string $mask    can be VIEW, EDIT, DELETE, OPERATOR etc
+     * @param mixed  &$object any entity
      *
-     * @return boolean
+     * @return bool
      */
     public function userIsGranted($mask, &$object)
     {
@@ -46,10 +43,11 @@ class SecurityManager
     /**
      * Throws a AccessDeniedException if the user is not granted the $mask on the Object.
      *
-     * @param string $mask can be VIEW, EDIT, DELETE, OPERATOR etc
-     * @param mixed &$object any entity
+     * @param string $mask    can be VIEW, EDIT, DELETE, OPERATOR etc
+     * @param mixed  &$object any entity
      *
      * @return bool
+     *
      * @throws AccessDeniedHttpException
      */
     public function verifyUserIsGranted($mask, &$object)
@@ -62,11 +60,12 @@ class SecurityManager
     }
 
     /**
-     * Throws a AccessDeniedException if the project is not public
+     * Throws a AccessDeniedException if the project is not public.
      *
      * @param Project $project
      *
      * @return bool
+     *
      * @throws AccessDeniedHttpException
      */
     public function verifyProjectIsPublic(Project &$project)

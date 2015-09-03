@@ -13,44 +13,38 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class ProjectManager
+ * Class ProjectManager.
  *
  * @author Tobias Nyholm
  *
  * This is the class you should use when managing (adding/removing stuff) your projects
- *
  */
 class ProjectManager
 {
     /**
      * @var ObjectManager em
-     *
-     *
      */
     protected $em;
 
     /**
      * @var PermissionManager permissionManager
-     *
      */
     protected $permissionManager;
 
     /**
      * @var ProjectFactory projectFactory
-     *
      */
     protected $projectFactory;
 
     /**
      * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface dispatcher
-     *
      */
     protected $dispatcher;
 
     /**
-     * @param ObjectManager $om
-     * @param PermissionManager $pm
-     * @param ProjectFactory $pf
+     * @param ObjectManager            $om
+     * @param PermissionManager        $pm
+     * @param ProjectFactory           $pf
      * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(
@@ -66,16 +60,15 @@ class ProjectManager
     }
 
     /**
-     * Add a request to join the project
+     * Add a request to join the project.
      *
-     * @param Project &$project
+     * @param Project                &$project
      * @param ProjectMemberInterface &$user
-     *
      */
     public function addJoinRequest(Project &$project, ProjectMemberInterface &$user)
     {
         /**
-         * Get admins
+         * Get admins.
          */
         $administrators = array();
         foreach ($project->getUsers() as $u) {
@@ -90,10 +83,9 @@ class ProjectManager
     }
 
     /**
-     * Remove private projects are revoke permission from other projects
+     * Remove private projects are revoke permission from other projects.
      *
      * @param ProjectMemberInterface &$user
-     *
      */
     public function removeUserFromAllProjects(ProjectMemberInterface &$user)
     {
@@ -109,17 +101,18 @@ class ProjectManager
     }
 
     /**
-     * Add a user to a project
+     * Add a user to a project.
      *
      *
-     * @param Project $project
+     * @param Project                $project
      * @param ProjectMemberInterface &$user
-     * @param string $mask
+     * @param string                 $mask
      *
      * @return bool
+     *
      * @throws \InvalidArgumentException
      */
-    public function addUser(Project $project, ProjectMemberInterface &$user, $mask='VIEW')
+    public function addUser(Project $project, ProjectMemberInterface &$user, $mask = 'VIEW')
     {
         //if you try to add a user that already is a part of the project
         if ($project->getUsers()->contains($user)) {
@@ -127,7 +120,7 @@ class ProjectManager
         }
 
         /**
-         * Make sure that the project is a public project, or create a new public project
+         * Make sure that the project is a public project, or create a new public project.
          */
         if (!$project->isPublic()) {
             throw new \InvalidArgumentException('You can not add a user to a private project');
@@ -144,11 +137,10 @@ class ProjectManager
     }
 
     /**
-     * Remove user
+     * Remove user.
      *
-     * @param Project $project
+     * @param Project                $project
      * @param ProjectMemberInterface &$user
-     *
      */
     public function removeUser(Project $project, ProjectMemberInterface &$user)
     {
@@ -156,7 +148,6 @@ class ProjectManager
 
         $this->em->persist($project);
         $this->em->flush();
-
     }
 
     /**
@@ -164,10 +155,10 @@ class ProjectManager
      *
      * WARNING: This will remove the object from any previuos projects
      *
-     * @param Project $project
+     * @param Project                $project
      * @param ProjectObjectInterface $object
      *
-     * @return boolean
+     * @return bool
      */
     public function addObject(Project $project, ProjectObjectInterface &$object)
     {
@@ -192,11 +183,10 @@ class ProjectManager
     }
 
     /**
-     * Remove object from project
+     * Remove object from project.
      *
-     * @param Project $project
+     * @param Project                $project
      * @param ProjectObjectInterface $object
-     *
      */
     public function removeObject(Project $project, ProjectObjectInterface &$object)
     {
@@ -208,12 +198,11 @@ class ProjectManager
     }
 
     /**
-     * Alias for PermissionManager
+     * Alias for PermissionManager.
      *
-     * @param Project $project
+     * @param Project                $project
      * @param ProjectMemberInterface $user
-     * @param string $mask
-     *
+     * @param string                 $mask
      */
     public function changeUserPermissions(Project $project, ProjectMemberInterface $user, $mask)
     {

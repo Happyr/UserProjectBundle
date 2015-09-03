@@ -1,19 +1,17 @@
 <?php
 
-
 namespace Happyr\UserProjectBundle\Model;
 
-use Happyr\IdentifierInterface;
 use Happyr\UserProjectBundle\Entity\Project;
 
 /**
- * Class ProjectObjectInterface
+ * Class ProjectObjectInterface.
  *
  * @author Tobias Nyholm
- *
  */
-interface ProjectObjectInterface extends IdentifierInterface
+interface ProjectObjectInterface
 {
+    public function getId();
     public function getProject();
     public function setProject(Project $project);
 }

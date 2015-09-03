@@ -10,17 +10,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Acl\Model\AclInterface;
 
 /**
- * Class BaseAclManager
+ * Class BaseAclManager.
  *
  * @author Tobias Nyholm
- *
  */
 abstract class BaseAclManager
 {
     /**
      * @var MutableAclProviderInterface aclProvider
-     *
-     *
      */
     protected $aclProvider;
 
@@ -33,7 +30,7 @@ abstract class BaseAclManager
     }
 
     /**
-     * Return a ACL for the object
+     * Return a ACL for the object.
      *
      * @param mixed &$object
      *
@@ -53,7 +50,7 @@ abstract class BaseAclManager
     }
 
     /**
-     * Get the user security identity
+     * Get the user security identity.
      *
      * @param UserInterface &$user
      *
@@ -67,13 +64,13 @@ abstract class BaseAclManager
     }
 
     /**
-     * Add a user to the object and set the permission mask
+     * Add a user to the object and set the permission mask.
      *
      * Thus function persists the object but does not flush
      *
-     * @param mixed &$object
+     * @param mixed         &$object
      * @param UserInterface &$user
-     * @param integer $permissionMask
+     * @param int           $permissionMask
      */
     protected function addUserAce(&$object, UserInterface &$user, $permissionMask)
     {
@@ -93,9 +90,9 @@ abstract class BaseAclManager
     }
 
     /**
-     * Delete the access control entity for this user on this object
+     * Delete the access control entity for this user on this object.
      *
-     * @param mixed &$object
+     * @param mixed         &$object
      * @param UserInterface &$user
      */
     protected function removeUserAce(&$object, UserInterface &$user)
@@ -113,9 +110,9 @@ abstract class BaseAclManager
     }
 
     /**
-     * Return the index of the Ace for the $securityIdentity in the $acl
+     * Return the index of the Ace for the $securityIdentity in the $acl.
      *
-     * @param AclInterface &$acl
+     * @param AclInterface         &$acl
      * @param UserSecurityIdentity &$securityIdentity
      *
      * @return int|bool false if not found

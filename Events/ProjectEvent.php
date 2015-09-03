@@ -6,21 +6,19 @@ use Happyr\UserProjectBundle\Entity\Project;
 use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
- * Class ProjectEvent
+ * Class ProjectEvent.
  *
  * @author Tobias Nyholm
- *
  */
 class ProjectEvent extends BaseEvent
 {
     /**
      * @var ProjectMemberInterface user
-     *
      */
     protected $user;
 
     /**
-     * @param Project &$project
+     * @param Project                &$project
      * @param ProjectMemberInterface &$user
      */
     public function __construct(Project &$project, ProjectMemberInterface &$user)
@@ -31,7 +29,6 @@ class ProjectEvent extends BaseEvent
     }
 
     /**
-     *
      * @param \Happyr\ProjectMemberInterface $user
      *
      * @return $this
@@ -44,7 +41,6 @@ class ProjectEvent extends BaseEvent
     }
 
     /**
-     *
      * @return \Happyr\ProjectMemberInterface
      */
     public function getUser()

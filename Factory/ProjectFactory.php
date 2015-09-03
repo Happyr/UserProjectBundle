@@ -8,7 +8,7 @@ use Happyr\UserProjectBundle\Manager\PermissionManager;
 use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
- * Class ProjectFactory
+ * Class ProjectFactory.
  *
  * @author Tobias Nyholm
  *
@@ -19,29 +19,26 @@ class ProjectFactory
 {
     /**
      * @var ObjectManager em
-     *
      */
     private $em;
 
     /**
      * @var PermissionManager permissionManager
-     *
      */
     private $permissionManager;
 
     /**
-     * @param ObjectManager $em
+     * @param ObjectManager     $em
      * @param PermissionManager $pm
      */
     public function __construct(ObjectManager $em, PermissionManager $pm)
     {
         $this->em = $em;
         $this->permissionManager = $pm;
-
     }
 
     /**
-     * Returns a new object with all empty values
+     * Returns a new object with all empty values.
      *
      * @return Project
      */
@@ -51,19 +48,17 @@ class ProjectFactory
     }
 
     /**
-     * Mark a project as private
+     * Mark a project as private.
      *
-     * @param Project &$project
+     * @param Project                &$project
      * @param ProjectMemberInterface &$user
-     *
      */
     public function makePrivate(Project &$project, ProjectMemberInterface &$user)
     {
         $project
-            ->setName('_private_' . $user->getId())
+            ->setName('_private_'.$user->getId())
             ->setPublic(false)
             ->addUser($user);
-
     }
 
     /**
@@ -77,9 +72,9 @@ class ProjectFactory
      */
     public function clonePrivateProject(Project $project)
     {
-        $owner=$project->getUsers()->first();
+        $owner = $project->getUsers()->first();
 
-        $project=$this->getNew();
+        $project = $this->getNew();
         $project->setName('Project - '.$owner->getId());
 
         $this->create($project);
@@ -88,12 +83,10 @@ class ProjectFactory
         return $project;
     }
 
-
     /**
-     * Saves the projects
+     * Saves the projects.
      *
      * @param Project $project
-     *
      */
     public function create(Project &$project)
     {
@@ -102,16 +95,15 @@ class ProjectFactory
 
         if (!$project->isPublic()) {
             //make the user master over his private project
-            $user=$project->getUsers()->first();
+            $user = $project->getUsers()->first();
             $this->permissionManager->addUser($project, $user, 'OWNER');
         }
     }
 
     /**
-     * Remove a project
+     * Remove a project.
      *
      * @param Project &$project
-     *
      */
     public function remove(Project &$project)
     {

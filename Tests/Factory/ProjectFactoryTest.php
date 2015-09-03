@@ -6,26 +6,25 @@ use Happyr\UserProjectBundle\Factory\ProjectFactory;
 use Mockery as m;
 
 /**
- * Class ProjectFactoryTest
+ * Class ProjectFactoryTest.
  *
  * @author Tobias Nyholm
- *
  */
 class ProjectFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testMakePrivate()
     {
-        $user=m::mock('Happyr\UserProjectBundle\Model\ProjectMemberInterface')
+        $user = m::mock('Happyr\UserProjectBundle\Model\ProjectMemberInterface')
             ->shouldReceive('getId')->andReturn('4711')
             ->getMock();
 
-        $project=m::mock('Happyr\UserProjectBundle\Entity\Project');
+        $project = m::mock('Happyr\UserProjectBundle\Entity\Project');
         $project
             ->shouldReceive('setName')->with('_private_4711')->andReturn($project)
             ->shouldReceive('setPublic')->with(false)->andReturn($project)
             ->shouldReceive('addUser')->with($user)->andReturn($project);
 
-        $factory=new ProjectFactory(
+        $factory = new ProjectFactory(
             m::mock('Doctrine\Common\Persistence\ObjectManager'),
             m::mock('Happyr\UserProjectBundle\Manager\PermissionManager')
         );

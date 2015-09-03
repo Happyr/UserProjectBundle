@@ -7,25 +7,21 @@ use Happyr\UserProjectBundle\Entity\Project;
 use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
- * Class SecureProjectManager
+ * Class SecureProjectManager.
  *
  * @author Tobias Nyholm
  *
  * This project manager check if the current user has permissions to execute the tasks in the project manager
- *
  */
 class SecureProjectManager extends ProjectManager
 {
     /**
      * @var SecurityManager securityManager
-     *
      */
     protected $securityManager;
 
     /**
-     *
      * @param \Happyr\UserProjectBundle\Manager\SecurityManager $securityManager
-     *
      */
     public function setSecurityManager(SecurityManager $securityManager)
     {
@@ -40,16 +36,16 @@ class SecureProjectManager extends ProjectManager
     }
 
     /**
-     * Add a user to a project
+     * Add a user to a project.
      *
      *
-     * @param Project $project
+     * @param Project                $project
      * @param ProjectMemberInterface &$user
-     * @param string $mask
+     * @param string                 $mask
      *
      * @return bool
      */
-    public function addUser(Project $project, ProjectMemberInterface &$user, $mask='VIEW')
+    public function addUser(Project $project, ProjectMemberInterface &$user, $mask = 'VIEW')
     {
         $this->securityManager->verifyProjectIsPublic($project);
         $this->securityManager->verifyUserIsGranted('MASTER', $project);
@@ -62,10 +58,10 @@ class SecureProjectManager extends ProjectManager
      *
      * WARNING: This will remove the object from any previuos projects
      *
-     * @param Project $project
+     * @param Project                $project
      * @param ProjectObjectInterface $object
      *
-     * @return boolean
+     * @return bool
      */
     public function addObject(Project $project, ProjectObjectInterface &$object)
     {
@@ -75,11 +71,10 @@ class SecureProjectManager extends ProjectManager
     }
 
     /**
-     * Remove user
+     * Remove user.
      *
-     * @param Project $project
+     * @param Project                $project
      * @param ProjectMemberInterface &$user
-     *
      */
     public function removeUser(Project $project, ProjectMemberInterface &$user)
     {
@@ -89,11 +84,10 @@ class SecureProjectManager extends ProjectManager
     }
 
     /**
-     * Remove object from project
+     * Remove object from project.
      *
-     * @param Project $project
+     * @param Project                $project
      * @param ProjectObjectInterface $object
-     *
      */
     public function removeObject(Project $project, ProjectObjectInterface &$object)
     {
@@ -103,12 +97,11 @@ class SecureProjectManager extends ProjectManager
     }
 
     /**
-     * Alias for PermissionManager
+     * Alias for PermissionManager.
      *
-     * @param Project $project
+     * @param Project                $project
      * @param ProjectMemberInterface $user
-     * @param string $mask
-     *
+     * @param string                 $mask
      */
     public function changeUserPermissions(Project $project, ProjectMemberInterface $user, $mask)
     {

@@ -6,14 +6,12 @@ use Doctrine\ORM\EntityRepository;
 use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 
 /**
- * Class ProjectRepository
+ * Class ProjectRepository.
  *
  * @author Tobias Nyholm
- *
  */
 class ProjectRepository extends EntityRepository
 {
-
     /**
      * Get the private project for a user.
      *
@@ -26,7 +24,7 @@ class ProjectRepository extends EntityRepository
         //TODO change this, we cant trust the name...
         return $this->findOneBy(
             array(
-                'name' => '_private_' . $user->getId(),
+                'name' => '_private_'.$user->getId(),
                 'public' => false,
             )
         );
@@ -50,7 +48,7 @@ class ProjectRepository extends EntityRepository
     }
 
     /**
-     * Get query builder for user project
+     * Get query builder for user project.
      *
      *
      * @return \Doctrine\ORM\QueryBuilder

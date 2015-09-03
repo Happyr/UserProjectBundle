@@ -9,26 +9,22 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Project
- *
+ * Project.
  */
 class Project
 {
     /**
-     * @var integer
-     *
+     * @var int
      */
     protected $id;
 
     /**
      * @var ArrayCollection
-     *
      */
     protected $users;
 
     /**
      * @var ArrayCollection
-     *
      */
     protected $objects;
 
@@ -37,14 +33,11 @@ class Project
      *
      * This indicates if it is a public project that users can request to join.
      * A private project has always one user and is pretty much hidden from everyone
-     *
-     *
      */
     protected $public = true;
 
     /**
      * @var array permissions
-     *
      */
     protected $permissions;
 
@@ -59,24 +52,21 @@ class Project
 
     /**
      * @var string
-     *
      */
     protected $description;
 
     /**
-     * @var \Datetime $createdAt
-     *
+     * @var \Datetime
      */
     protected $createdAt;
 
     /**
-     * @var \Datetime $updatedAt
-     *
+     * @var \Datetime
      */
     protected $updatedAt;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -88,10 +78,10 @@ class Project
     }
 
     /**
-     * Set permissions for user
+     * Set permissions for user.
      *
      * @param ProjectMemberInterface &$user
-     * @param string $mask
+     * @param string                 $mask
      *
      * @return $this
      */
@@ -103,7 +93,7 @@ class Project
     }
 
     /**
-     * Get the permissions for this user on this project
+     * Get the permissions for this user on this project.
      *
      * @param ProjectMemberInterface $user
      *
@@ -119,7 +109,7 @@ class Project
     }
 
     /**
-     * Revoke persmissions for a user
+     * Revoke persmissions for a user.
      *
      * @param ProjectMemberInterface &$user
      *
@@ -135,9 +125,9 @@ class Project
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -145,7 +135,7 @@ class Project
     }
 
     /**
-     * Add user
+     * Add user.
      *
      * @param UserInterface &$user
      *
@@ -161,11 +151,11 @@ class Project
     }
 
     /**
-     * Remove an user
+     * Remove an user.
      *
      * @param UserInterface &$user
      *
-     * @return boolean
+     * @return bool
      */
     public function removeUser(UserInterface &$user)
     {
@@ -173,7 +163,7 @@ class Project
     }
 
     /**
-     * Get users
+     * Get users.
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
@@ -183,7 +173,7 @@ class Project
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -197,7 +187,7 @@ class Project
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -207,7 +197,7 @@ class Project
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      *
@@ -221,7 +211,7 @@ class Project
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -231,7 +221,7 @@ class Project
     }
 
     /**
-     * Add objects
+     * Add objects.
      *
      * @param ProjectObjectInterface &$object
      *
@@ -248,7 +238,7 @@ class Project
     }
 
     /**
-     * Remove an object
+     * Remove an object.
      *
      * @param ProjectObjectInterface &$object
      *
@@ -260,7 +250,7 @@ class Project
     }
 
     /**
-     * Get objects
+     * Get objects.
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
      */
@@ -270,8 +260,7 @@ class Project
     }
 
     /**
-     *
-     * @param boolean $public
+     * @param bool $public
      *
      * @return $this
      */
@@ -283,8 +272,7 @@ class Project
     }
 
     /**
-     *
-     * @return boolean
+     * @return bool
      */
     public function isPublic()
     {
@@ -292,7 +280,7 @@ class Project
     }
 
     /**
-     * Update timestamp
+     * Update timestamp.
      */
     public function updateUpdatedAt()
     {
@@ -300,7 +288,6 @@ class Project
     }
 
     /**
-     *
      * @return \Datetime
      */
     public function getCreatedAt()
@@ -309,7 +296,6 @@ class Project
     }
 
     /**
-     *
      * @return \Datetime
      */
     public function getUpdatedAt()

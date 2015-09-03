@@ -2,23 +2,16 @@
 
 namespace Happyr\UserProjectBundle\Controller;
 
-use Happyr\UserProjectBundle\Form\ObjectType;
-use Happyr\UserProjectBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use JMS\SecurityExtraBundle\Annotation\Secure;
-
 use Happyr\UserProjectBundle\Entity\Project;
 use Happyr\UserProjectBundle\Form\ProjectType;
 
 /**
- * Class ProjectController
+ * Class ProjectController.
  *
  * @author Tobias Nyholm
- *
- *
  */
 class ProjectController extends Controller
 {
@@ -32,7 +25,7 @@ class ProjectController extends Controller
     public function indexAction()
     {
         $user = $this->getUser();
-        $repo=$this->getDoctrine()->getRepository('HappyrUserProjectBundle:Project');
+        $repo = $this->getDoctrine()->getRepository('HappyrUserProjectBundle:Project');
         $myProjects = $repo->findUserProjects($user);
 
         $projects = $repo->findNonUserProjects($user);
@@ -54,7 +47,7 @@ class ProjectController extends Controller
      */
     public function showAction(Project $project)
     {
-        $security=$this->get('happyr.user.project.security_manager');
+        $security = $this->get('happyr.user.project.security_manager');
         $security->verifyUserIsGranted('VIEW', $project);
         $security->verifyProjectIsPublic($project);
 
@@ -64,7 +57,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Remove an user from the project
+     * Remove an user from the project.
      *
      * @param Project $project
      *
@@ -72,7 +65,7 @@ class ProjectController extends Controller
      */
     public function leaveAction(Project $project)
     {
-        $security=$this->get('happyr.user.project.security_manager');
+        $security = $this->get('happyr.user.project.security_manager');
         $security->verifyUserIsGranted('VIEW', $project);
         $security->verifyProjectIsPublic($project);
 
@@ -147,7 +140,7 @@ class ProjectController extends Controller
      */
     public function editAction(Request $request, Project $project)
     {
-        $security=$this->get('happyr.user.project.security_manager');
+        $security = $this->get('happyr.user.project.security_manager');
         $security->verifyUserIsGranted('MASTER', $project);
         $security->verifyProjectIsPublic($project);
 
@@ -164,7 +157,7 @@ class ProjectController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $em=$this->getDoctrine()->getManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($project);
                 $em->flush();
 
@@ -190,7 +183,7 @@ class ProjectController extends Controller
      */
     public function deleteAction(Request $request, Project $project)
     {
-        $security=$this->get('happyr.user.project.security_manager');
+        $security = $this->get('happyr.user.project.security_manager');
         $security->verifyUserIsGranted('MASTER', $project);
         $security->verifyProjectIsPublic($project);
 
@@ -228,7 +221,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Remove an user from the project
+     * Remove an user from the project.
      *
      * @param Project $project
      *
