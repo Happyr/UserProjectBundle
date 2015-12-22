@@ -33,7 +33,7 @@ services:
 
   happyr.user.project.project_service:
     class: Happyr\UserProjectBundle\Service\ProjectService
-    arguments: [@doctrine.orm.entity_manager, @happyr.user.project.project_factory]
+    arguments: [@doctrine.orm.entity_manager, @happyr.user.project.project_factory, @event_dispatcher]
 
   happyr.user.project.security_manager:
     class: Happyr\UserProjectBundle\Manager\SecurityManager
