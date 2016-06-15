@@ -4,6 +4,7 @@ namespace Happyr\UserProjectBundle\Manager;
 
 use Happyr\UserProjectBundle\Entity\Project;
 use Happyr\UserProjectBundle\Event\ProjectEvent;
+use Happyr\UserProjectBundle\Event\ProjectObjectEvent;
 use Happyr\UserProjectBundle\Factory\ProjectFactory;
 use Happyr\UserProjectBundle\Model\ProjectMemberInterface;
 use Happyr\UserProjectBundle\Model\ProjectObjectInterface;
@@ -106,9 +107,8 @@ class ProjectManager
         $this->em->persist($project);
         $this->em->flush();
 
-        //fire event
-        $event = new ProjectEvent($project, $user);
-        $this->dispatcher->dispatch(ProjectEvent::USER_ADDED, $event);
+        // Dispatch event
+        $this->dispatcher->dispatch(ProjectEvent::USER_ADDED, new ProjectEvent($project, $user));
     }
 
     /**
@@ -123,6 +123,9 @@ class ProjectManager
 
         $this->em->persist($project);
         $this->em->flush();
+
+        // Dispatch event
+        $this->dispatcher->dispatch(ProjectEvent::USER_REMOVED, new ProjectEvent($project, $user));
     }
 
     /**
@@ -154,6 +157,9 @@ class ProjectManager
         $this->em->persist($object);
         $this->em->flush();
 
+        // Dispatch event
+        $this->dispatcher->dispatch(ProjectObjectEvent::OBJECT_ADDED, new ProjectEvent($project, $object));
+
         return true;
     }
 
@@ -170,6 +176,8 @@ class ProjectManager
         $this->em->persist($project);
         $this->em->persist($object);
         $this->em->flush();
+
+        $this->dispatcher->dispatch(ProjectObjectEvent::OBJECT_REMOVED, new ProjectEvent($project, $object));
     }
 
     /**

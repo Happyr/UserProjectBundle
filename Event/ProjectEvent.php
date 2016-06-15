@@ -10,9 +10,12 @@ use Happyr\UserProjectBundle\Entity\Project;
 class ProjectEvent extends BaseEvent
 {
     /**
-     * This event is fired when someone is invited to a project.
-     *
-     * @var string
+     * This event is dispatch when someone is added to a project.
      */
     const USER_ADDED = 'happyr.user.project.user.added';
+
+    /**
+     * This event is dispatch when someone is removed to a project.
+     */
+    const USER_REMOVED = 'happyr.user.project.user.removed';
 }
