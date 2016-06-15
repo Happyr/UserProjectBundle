@@ -66,9 +66,9 @@ class ProjectManager
     public function removeUserFromAllProjects(ProjectMemberInterface $user)
     {
         $repo = $this->em->getRepository('HappyrUserProjectBundle:Project');
-        $privateProject = $repo->findPrivateProject($user);
-
-        $this->projectFactory->remove($privateProject);
+        if (null !== $privateProject = $repo->findPrivateProject($user)) {
+            $this->projectFactory->remove($privateProject);
+        }
 
         $projects = $repo->findUserProjects($user);
         foreach ($projects as $p) {
